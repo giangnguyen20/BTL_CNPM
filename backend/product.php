@@ -1,3 +1,7 @@
+<?php 
+    require_once('../database/connectdb.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,98 +98,31 @@
 
             <!-- Product -->
             <div class="product">
-
                 <div class="product-view">
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-while.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-back.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-blue.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-ori.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-ping.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-red.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-ori.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item">
-                        <img src="../assets/imgaes/chair-while.jpg" alt="" class="item-img">
-                        <div class="item-info">
-                            <h3>Name</h3>
-                            <div class="item-much">
-                                <p>$30.3</p>
-                                <p>$25.9</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- show product -->
+                    <?php
+                        $sql = 'select * from sanpham';
+                        $ProductList = executeResult($sql);
+                        
+                        foreach($ProductList as $item){
+                            
+                            echo '
+                            <div class="product-item">
+                                <img style="width: 80%;" src="'.$item['img'].'">
+                                <div class="item-info">
+                                    <h3>'.$item['TenSp'].'</h3>
+                                    <div class="item-much" style="justify-content: center;">
+                                        <p>'.$item['Gia'].'</p>
+                                        <p>'.$item['Mau'].'</p>
+                                    </div>
+                                </div>
+                            </div>';
+                        }
+                    ?>
+                    <!-- end code -->
                 </div>
+                <!-- End Product -->
             </div>
-            <!-- End Product -->
         </div>
     </div>
 

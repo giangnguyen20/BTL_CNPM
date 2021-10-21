@@ -1,3 +1,7 @@
+<?php 
+    require_once('../database/connectdb.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,40 +23,40 @@
             </div>
 
             <div class="header-content">
-                <div class="header-item"> 
+                <div class="header-item">
                     <div class="header-item_search">
-                        <input type="text">
-                        <form method="">
+                        <form action="" method="POST">
+                            <input type="text">
                             <button type="submit">
                                 <i class="ti-search js_search"></i>
-                            </button>   
+                            </button>
                         </form>
+                    </div>
+
+                    <div class="header-nav">
+                        <ul class="nav">
+                            <li><a href="../backend/index.php">Home</a></li>
+                            <li><a href="../backend/product.php">Product</a></li>
+                            <li><a href="#">office chair</a></li>
+                            <li><a href="#">gamer chair</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="header-nav">
-                    <ul class="nav">
-                        <li><a href="../backend/index.php">Home</a></li>
-                        <li><a href="../backend/product.php">Product</a></li>
-                        <li><a href="#">office chair</a></li>
-                        <li><a href="#">gamer chair</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-
-                    <div class="header-item_user">
-                        <a href="#">
-                            <i class="ti-user js_user">
-                                <div class="subnav-user">
-                                    <ul>
-                                        <li>Name</li>
-                                        <li><i class="ti-help"></i> Trợ giúp</li>
-                                        <li><i class="ti-shift-left"></i> Đăng xuất</li>
-                                    </ul>
-                                </div>
-                            </i>
-                        </a> |
-                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                    </div>
+                <div class="header-item_user">
+                    <a href="#">
+                        <i class="ti-user js_user">
+                            <div class="subnav-user">
+                                <ul>
+                                    <li>Name</li>
+                                    <li><i class="ti-help"></i> Trợ giúp</li>
+                                    <li><i class="ti-shift-left"></i> Đăng xuất</li>
+                                </ul>
+                            </div>
+                        </i>
+                    </a> |
+                    <a href="#"><i class="ti-shopping-cart"></i></a>
                 </div>
             </div>
         </div>
@@ -68,7 +72,7 @@
                         <h1>nice chair</h1>
                     </div>
                     <div class="btn-banner">
-                        <a href="#" class="btn-shop">Shop Now</a>
+                        <a href="../backend/product.php" class="btn-shop">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -82,93 +86,32 @@
             </div>
 
             <div class="product-view">
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-while.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- show product -->
+                <?php
+                    $sql = 'select * from sanpham';
+                    $ProductList = executeResult($sql);
+                    
+                    $index = 0;
 
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-back.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-blue.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-ori.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-ping.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-red.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-ori.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-item">
-                    <img src="../assets/imgaes/chair-while.jpg" alt="" class="item-img">
-                    <div class="item-info">
-                        <h3>Name</h3>
-                        <div class="item-much">
-                            <p>$30.3</p>
-                            <p>$25.9</p>
-                        </div>
-                    </div>
-                </div>
+                    foreach($ProductList as $item){
+                        $index++;
+                        if($index > 8){
+                            break;
+                        }
+                        echo '
+                            <div class="product-item">
+                                <img style="width: 80%;" src="'.$item['img'].'">
+                                <div class="item-info">
+                                    <h3>'.$item['TenSp'].'</h3>
+                                    <div class="item-much" style="justify-content: center;">
+                                        <p>'.$item['Gia'].'</p>
+                                        <p>'.$item['Mau'].'</p>
+                                    </div>
+                                </div>
+                            </div>';
+                    }
+                ?>
+                <!-- end code -->
             </div>
         </div>
         <!-- End Product -->
@@ -215,6 +158,8 @@
         </div>
     </div>
 
+    <form id="chitietsp" action="chitietsp.php" style="display: none;"></form>
+
     <script>
         const open_user = document.querySelector('.js_user');
         const show = document.querySelector('.subnav-user');
@@ -222,7 +167,16 @@
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
+        
 
+        const listSP = document.querySelectorAll('.product-item');
+
+        for (const item of listSP) {
+            item.addEventListener('click', (e) =>{
+                document.getElementById("chitietsp").submit();
+            });
+        }
+        
     </script>
 </body>
 

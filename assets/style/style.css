@@ -213,6 +213,9 @@ a {
 
 .product {
     margin: 32px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .product .heading{
@@ -227,7 +230,7 @@ a {
     justify-content: center;
 }
 
-.product-view a {
+.product-view form {
     color: #000;
 }
 

@@ -1,6 +1,5 @@
 <?php 
     require_once('../database/connectdb.php');
-    echo 'hello';
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +72,7 @@
                         <h1>nice chair</h1>
                     </div>
                     <div class="btn-banner">
-                        <a href="../backend/product.php" class="btn-shop">Shop Now</a>
+                        <a href="#" class="btn-shop">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -159,7 +158,6 @@
         </div>
     </div>
 
-    <form id="chitietsp" action="chitietsp.php" style="display: none;"></form>
 
     <script>
         const open_user = document.querySelector('.js_user');
@@ -168,15 +166,7 @@
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
-        
-
-        const listSP = document.querySelectorAll('.product-item');
-
-        for (const item of listSP) {
-            item.addEventListener('click', (e) =>{
-                document.getElementById("chitietsp").submit();
-            });
-        }
+    
         
     </script>
 </body>

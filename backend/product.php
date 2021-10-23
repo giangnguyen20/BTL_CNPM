@@ -9,96 +9,83 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>Chair Shop</title>
     <link rel="stylesheet" href="../assets/style/style.css">
     <link rel="stylesheet" href="../assets/font/themify-icons-font/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../assets/style/product-style.css">
 </head>
 
 <body>
     <div class="main">
         <!-- Header -->
-        <div class="header" style=" height: 55px;">
+        <div class="header">
             <div class="header-logo">
-                <img src="../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
+                <img src="./assets/imgaes/your-logo.png" alt="logo">
             </div>
 
             <div class="header-content">
-                <div class="header-nav">
-                    <ul class="nav">
-                        <li><a href="../backend/index.php">Home</a></li>
-                        <li><a href="../backend/product.php">Product</a></li>
-                        <li><a href="#">office chair</a></li>
-                        <li><a href="#">gamer chair</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-
-                    <div class="header-item_user">
-                        <a href="#">
-                            <i class="ti-user js_user">
-                                <div class="subnav-user">
-                                    <ul>
-                                        <li>Name</li>
-                                        <li><i class="ti-help"></i> Trợ giúp</li>
-                                        <li><i class="ti-shift-left"></i> Đăng xuất</li>
-                                    </ul>
-                                </div>
-                            </i>
-                        </a> |
-                        <a href="#"><i class="ti-shopping-cart"></i></a>
+                <div class="header-item">
+                    <div class="header-item_search">
+                        <form action="" method="POST">
+                            <input type="text">
+                            <button type="submit">
+                                <i class="ti-search js_search"></i>
+                            </button>
+                        </form>
                     </div>
+
+                    <div class="header-nav">
+                        <ul class="nav">
+                            <li><a href="../backend/index.php">Home</a></li>
+                            <li><a href="../backend/product.php">Product</a></li>
+                            <li><a href="#">office chair</a></li>
+                            <li><a href="#">gamer chair</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="header-item_user">
+                    <a href="#">
+                        <i class="ti-user js_user">
+                            <div class="subnav-user">
+                                <ul>
+                                    <li>Name</li>
+                                    <li><i class="ti-help"></i> Trợ giúp</li>
+                                    <li><i class="ti-shift-left"></i> Đăng xuất</li>
+                                </ul>
+                            </div>
+                        </i>
+                    </a> |
+                    <a href="#"><i class="ti-shopping-cart"></i></a>
                 </div>
             </div>
         </div>
         <!-- End Header -->
 
-        <div class="container">
-            <!-- Slider -->
-            <div class="slider">
-                <div class="slider-search">
-                    <input type="text" placeholder="nhập sản phẩm cần tìm">
-                    <a href="#">Tìm</a>
-                </div>
-
-                <div class="slider-producer">
-                    <ul class="nav-producer">
-                        <li><a href="#">hãng ghế 1</a></li>
-                        <li><a href="#">hãng ghế 2</a></li>
-                        <li><a href="#">hãng ghế 3</a></li>
-                    </ul>
-                </div>
-
-                <div class="slider-price">
-                    <ul>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $1.5 - $2.5
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $2.5 - $3.5
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $3.5 - $4.5
-                            </span>
-                        </li>
-
-                        <li>
-                            <span>
-                                <input type="checkbox"> $4.5 trở lên
-                            </span>
-                        </li>
-                    </ul>
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-img">
+                <img src="./assets/imgaes/banner.png" alt="banner">
+                <div class="about">
+                    <div class="about-banner">
+                        <p>Collection 2021</p>
+                        <h1>nice chair</h1>
+                    </div>
+                    <div class="btn-banner">
+                        <a href="#" class="btn-shop">Shop Now</a>
+                    </div>
                 </div>
             </div>
-            <!-- End  Slider-->
+        </div>
+        <!-- End banner -->
 
-            <!-- Product -->
-            <div class="product">
-                <div class="product-view">
+        <!-- Product -->
+        <div class="product">
+            <div class="heading">
+                <h1>PRODUCT</h1>
+            </div>
+
+            <div class="product-view">
                     <!-- show product -->
                     <?php
                         $sql = 'select * from sanpham';
@@ -107,16 +94,18 @@
                         foreach($ProductList as $item){
                             
                             echo '
-                            <div class="product-item">
-                                <img style="width: 80%;" src="'.$item['img'].'">
-                                <div class="item-info">
-                                    <h3>'.$item['TenSp'].'</h3>
-                                    <div class="item-much" style="justify-content: center;">
-                                        <p>'.$item['Gia'].'</p>
-                                        <p>'.$item['Mau'].'</p>
+                            <form action="">
+                                <div class="product-item">
+                                    <img src="assets/imgaes/chair-while.jpg" alt="" class="item-img">
+                                    <div class="item-info">
+                                        <h3>Name</h3>
+                                        <div class="item-much">
+                                            <p>$30.3</p>
+                                            <p>$25.9</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>';
+                                </div>  
+                            </form>';
                         }
                     ?>
                     <!-- end code -->

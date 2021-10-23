@@ -1,5 +1,6 @@
 <?php 
     require_once('../database/connectdb.php');
+    echo 'hello';
 ?>
 
 <!DOCTYPE html>

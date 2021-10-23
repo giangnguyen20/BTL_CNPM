@@ -99,7 +99,7 @@
                             break;
                         }
                         echo '
-                        <form action="" style="width: 25%;">
+                        <form action="" style="width: 25%;" class="chitietsp">
                             <div class="product-item">
                                 <img style="width: 80%;" src="'.$item['img'].'">
                                 <div class="item-info">
@@ -169,7 +169,6 @@
             show.classList.toggle('open');
         });
     
-        
     </script>
 </body>
 

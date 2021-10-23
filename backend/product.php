@@ -56,42 +56,67 @@
             <!-- Slider -->
             <div class="slider">
                 <div class="slider-search">
-                    <input type="text" placeholder="nhập sản phẩm cần tìm">
-                    <a href="#">Tìm</a>
+                    <from action="">
+                        <input type="text" placeholder="nhập sản phẩm cần tìm">
+                        <input type="submit" name="" value="Tìm"></input>
+                    </form>
                 </div>
 
                 <div class="slider-producer">
                     <ul class="nav-producer">
-                        <li><a href="#">hãng ghế 1</a></li>
-                        <li><a href="#">hãng ghế 2</a></li>
-                        <li><a href="#">hãng ghế 3</a></li>
+                        <?php
+                            $sql = 'select tenloai from loaisp';
+
+                            $nhasxList = executeResult($sql);
+
+                            foreach($nhasxList as $item){
+                                echo '
+                                    <li><a href="#">'.$item['tenloai'].'</a></li>
+                                ';
+                            }
+                        ?>
                     </ul>
                 </div>
 
                 <div class="slider-price">
-                    <ul>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $1.5 - $2.5
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $2.5 - $3.5
-                            </span>
-                        </li>
-                        <li>
-                            <span>
-                                <input type="checkbox"> $3.5 - $4.5
-                            </span>
-                        </li>
+                    <?php
+                        $sql = 'select Gia from sanpham';
 
-                        <li>
-                            <span>
-                                <input type="checkbox"> $4.5 trở lên
-                            </span>
-                        </li>
-                    </ul>
+                        $nhasxList = executeResult($sql);
+                        
+                        $min = $nhasxList[0];
+
+                        foreach($nhasxList as $item){
+                            if($item['Gia'] < $min){
+                                $min = $item['Gia'];
+                            }
+                        }
+
+                        echo '
+                            <ul>
+                                <li>
+                                    <span><input type="radio" name="gia"> '.$min.'VNĐ - 1500000VNĐ</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <span><input type="radio" name="gia"> 1500000VNĐ - 2500000VNĐ</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <span><input type="radio" name="gia"> 2500000VNĐ - 3500000VNĐ</span>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <span><input type="radio" name="gia"> 3500000VNĐ trở lên</span>
+                                </li>
+                            </ul>';
+
+                    ?>
+
+
                 </div>
             </div>
             <!-- End  Slider-->

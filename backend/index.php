@@ -99,6 +99,7 @@
                             break;
                         }
                         echo '
+                        <form action="" style="width: 25%;">
                             <div class="product-item">
                                 <img style="width: 80%;" src="'.$item['img'].'">
                                 <div class="item-info">
@@ -108,7 +109,8 @@
                                         <p>'.$item['Mau'].'</p>
                                     </div>
                                 </div>
-                            </div>';
+                            </div>  
+                        </form>';
                     }
                 ?>
                 <!-- end code -->

@@ -1,5 +1,5 @@
 <?php 
-    require_once('../database/connectdb.php');
+    require_once('../db/dbhelper.php');
 ?>
 
 <!DOCTYPE html>

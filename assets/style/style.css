@@ -75,7 +75,7 @@ a {
 
 .header-item .header-item_search input {
     padding: 8px;
-    width: 90%;
+    width: 85%;
 } 
 .header-item .header-item_search form {
     width: 100%;
@@ -135,7 +135,7 @@ a {
     background-color: #ccc;
 }
 
-.header-content .header-item_user a {
+.header-content .header-item_user {
     display: inline-block;
     padding: 0 16px;
     line-height: 50px;

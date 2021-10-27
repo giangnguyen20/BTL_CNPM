@@ -26,7 +26,7 @@
                 <div class="header-item">
                     <div class="header-item_search">
                         <form action="" method="POST">
-                            <input type="text">
+                            <input type="text" style="width: 85%;">
                             <button type="submit">
                                 <i class="ti-search js_search"></i>
                             </button>
@@ -39,24 +39,44 @@
                             <li><a href="../backend/product.php">Product</a></li>
                             <li><a href="#">office chair</a></li>
                             <li><a href="#">gamer chair</a></li>
-                            <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="header-item_user">
-                    <a href="#">
-                        <i class="ti-user js_user">
-                            <div class="subnav-user">
-                                <ul>
-                                    <li>Name</li>
-                                    <li><i class="ti-help"></i> Trợ giúp</li>
-                                    <li><i class="ti-shift-left"></i> Đăng xuất</li>
-                                </ul>
-                            </div>
-                        </i>
-                    </a> |
-                    <a href="#"><i class="ti-shopping-cart"></i></a>
+                    <i class="ti-user js_user" style="padding: 12px;">
+                        <div class="subnav-user">
+                            <ul>
+                                <li>
+                                    <?php
+                                        session_start();
+                                        if (!isset($_SESSION['username'])) {
+                                            header('Location: login.php');
+                                        }
+
+                                        if($_SESSION['username'] != ""){
+                                            echo $_SESSION['username'];
+                                        }else{
+                                            echo "Người dùng chưa đăng nhập!";
+                                        }
+                                    ?>
+                                </li>
+                                <li><i class="ti-help"></i> Trợ giúp</li>
+                                <li>
+                                    <?php
+                                    if($_SESSION['username'] != ""){
+                                        echo '
+                                        <a href="login.php" style="text-decoration: none; color: #000;">
+                                            <i class="ti-shift-left"></i>Đăng xuất
+                                        </a>
+                                        ';
+                                    }
+                                    ?>
+                                </li>
+                            </ul>
+                        </div>
+                    </i> |
+                    <i class="ti-shopping-cart" style="padding: 12px;"></i>
                 </div>
             </div>
         </div>

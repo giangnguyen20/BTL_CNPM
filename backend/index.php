@@ -70,6 +70,10 @@
                                             <i class="ti-shift-left"></i>Đăng xuất
                                         </a>
                                         ';
+                                        $_SESSION['username'] = "";
+                                    }else {
+                                        echo '
+                                        <a href="login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
                                     }
                                     ?>
                                 </li>

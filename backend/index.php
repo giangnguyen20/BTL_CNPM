@@ -1,5 +1,6 @@
 <?php 
     require_once('../db/dbhelper.php');
+    require_once('../backend/login_signup/prosess_form_login.php');
 ?>
 
 <!DOCTYPE html>
@@ -49,13 +50,9 @@
                             <ul>
                                 <li>
                                     <?php
-                                        session_start();
-                                        if (!isset($_SESSION['username'])) {
-                                            header('Location: login.php');
-                                        }
 
-                                        if($_SESSION['username'] != ""){
-                                            echo $_SESSION['username'];
+                                        if($user != ""){
+                                            echo $user;
                                         }else{
                                             echo "Người dùng chưa đăng nhập!";
                                         }
@@ -64,16 +61,16 @@
                                 <li><i class="ti-help"></i> Trợ giúp</li>
                                 <li>
                                     <?php
-                                    if($_SESSION['username'] != ""){
+                                    if($user != ""){
                                         echo '
-                                        <a href="login.php" style="text-decoration: none; color: #000;">
+                                        <a href="../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
                                             <i class="ti-shift-left"></i>Đăng xuất
                                         </a>
                                         ';
-                                        $_SESSION['username'] = "";
+                                        $user = "";
                                     }else {
                                         echo '
-                                        <a href="login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
+                                        <a href="../backend/login_signup/login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
                                     }
                                     ?>
                                 </li>

@@ -1,5 +1,7 @@
 <?php
-    require_once('../db/dbhelper.php');
+    require_once('../utils/utility.php');
+    require_once('../../db/dbhelper.php');
+    require_once('prosess_form_register.php');
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +10,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>đăng ký</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -120,68 +123,43 @@
     </style>
 </head>
 <body>
-    <?php
-        session_start();
-        if(isset($_POST['user']) && isset($_POST['pass']))
-        {
-            $user = $_POST['user'];
-            $pass = $_POST['pass'];
-            function mysql_fix_string($conn,$string) {
-                // if(get_magic_quotes_gpc()) {
-                    $string=stripcslashes($string);
-                    return $conn->real_escape_string($string);
-                // }
-            }  
-            
-            if($user != '' && $pass != ''){
-                $host = 'localhost';
-                $login = 'root';
-                $passlog ='';
-                $dbname ='webbanghe';
-                $port = 3306;
-                $conn = new mysqli($host, $login, $passlog, $dbname, $port);
-
-                if(!$conn)                              // kiem tra ket noi database
-                    die($conn->error_connect);
-
-                $user = mysql_fix_string($conn, $user);
-                $pass = mysql_fix_string($conn, $pass);
-                $sql = "Select * from account where UserName='$user' and PassWord='$pass' and PhanQuyen = 0";
-
-                $result = $conn->query($sql);
-
-                if(!$result)
-                    die($conn->error);
-                    if(count(mysqli_fetch_all($result)) >0 ){
-                        $_SESSION['username'] = $user;
-                        header('Location: index.php');
-                    }
-                else
-                    echo "<script>alert('tài khoản hoặc mật khẩu không đúng!');</script>";
-            }
-            else{
-                echo "<script>alert('bạn chưa nhập tài khoản hoặc mật khẩu!');</script>";
-            }
-        }
-    ?>
     <div class="center">
-        <h1>LOGIN</h1>
-        <form method="post">
+        <h1>Đăng ký tài khoản</h1>
+        <h5 style="text-align: center; color: red;"><?=$smg?></h5>
+        <form method="post" onsubmit="return validateForm();">
             <div class="txt_field">
-                <input type="text" name="user">
+                <input type="text" id="user" name="user" required="true" value="<?=$user?>">
                 <span></span>
-                <label>Username</label>
+                <label>tài khoản</label>
             </div>
             <div class="txt_field">
-                <input type="password" name="pass">
+                <input type="password" id="pwd" name="pass" required="true"  minlength="6">
                 <span></span>
-                <label>Password</label>
+                <label>mật khẩu</label>
             </div>
-            <input type="submit" value="Login">
+            <div class="txt_field">
+                <input type="password" id="confirmation_pwd" required="true" minlength="6">
+                <span></span>
+                <label>xác nhận mật khẩu</label>
+            </div>
+            <input type="submit"  value="đăng ký">
             <div class="sign_up_link">
-                Not a member? <a href="signup.php">Sign Up</a>
+                <a href="login.php">Đăng nhập</a>
             </div>
         </form>
     </div>
+
+    <script type="text/javascript">
+        function validateForm(){
+            $pwd = $('#pwd').val();
+            $confirmpwd = $('#confirmation_pwd').val();
+            console.log($pwd + ' ' + $confirmpwd);
+            if($pwd != $confirmpwd){
+                alert('Mật khẩu không khớp, vui lòng kiểm tra lại');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>

@@ -12,10 +12,17 @@ if(!empty($_POST)){
     $userExist = executeSingleResult($sql);
 
     if($userExist == null){
-        $smg = "Tài khoản hoặc mật khẩu không chính xác!";
+        $smg = "Tài khoản không tồn tại";
     }
     else{
-        header('Location: ../');
-        die();
+        $check = "select UserName from account where UserName = '$user' and PassWord = '$pwd'";
+        $checkpwd = executeSingleResult($check);
+        
+        if($checkpwd != null){
+            header('Location: ../');
+            die();
+        }else{
+            $smg = "mật khẩu không đúng";
+        }
     }
 }

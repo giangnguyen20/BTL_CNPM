@@ -1,6 +1,6 @@
 <?php
 
-$user = '';
+$user = $smg = '';
 
 if(!empty($_POST)){
     $user = getPost('user');
@@ -11,6 +11,7 @@ if(!empty($_POST)){
 
     }else{
         $userExist = executeSingleResult("select * from account where UserName = '$user'");
+
         if($userExist != null){
             $smg = "Tài khoản đã tồn tại!";
         }
@@ -20,6 +21,7 @@ if(!empty($_POST)){
 
             $sql = "insert into account(id, UserName, PassWord, PhanQuyen) value (null, '$user', '$pwd', 0)";
             execute($sql);
+
             header('Location: login.php');
             die();
         }

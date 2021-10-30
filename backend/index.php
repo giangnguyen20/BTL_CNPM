@@ -37,7 +37,7 @@
                     <div class="header-nav">
                         <ul class="nav">
                             <li><a href="../backend/index.php">Home</a></li>
-                            <li><a href="../backend/product.php">Product</a></li>
+                            <li><a href="../backend/category/product.php">Product</a></li>
                             <li><a href="#">office chair</a></li>
                             <li><a href="#">gamer chair</a></li>
                         </ul>

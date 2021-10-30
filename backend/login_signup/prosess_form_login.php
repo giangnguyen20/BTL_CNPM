@@ -15,12 +15,18 @@ if(!empty($_POST)){
         $smg = "Tài khoản không tồn tại";
     }
     else{
-        $check = "select UserName from account where UserName = '$user' and PassWord = '$pwd'";
+        $check = "select UserName, PhanQuyen from account where UserName = '$user' and PassWord = '$pwd'";
         $checkpwd = executeSingleResult($check);
         
         if($checkpwd != null){
-            header('Location: ../');
-            die();
+            if($checkpwd['PhanQuyen'] == 0){
+                header('Location: ../');
+                die();
+            }
+            else{
+                header('Location: ../../admin/product/adminsp.php');
+                die();
+            }
         }else{
             $smg = "mật khẩu không đúng";
         }

@@ -38,8 +38,8 @@
                         <ul class="nav">
                             <li><a href="../backend/index.php">Home</a></li>
                             <li><a href="../backend/category/product.php">Product</a></li>
-                            <li><a href="#">office chair</a></li>
-                            <li><a href="#">gamer chair</a></li>
+                            <li><a href="category/product.php?tenloai=Văn Phòng">office chair</a></li>
+                            <li><a href="category/product.php?tenloai=Gaming">gamer chair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                             break;
                         }
                         echo '
-                        <form action="" style="width: 25%;" class="chitietsp">
+                        <a href="category/chitietsanpham.php?id='.$item['id'].'" style="width: 25%; color: black;">
                             <div class="product-item">
                                 <img style="width: 80%;" src="'.$item['img'].'">
                                 <div class="item-info">
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>  
-                        </form>';
+                        </a>';
                     }
                 ?>
                 <!-- end code -->

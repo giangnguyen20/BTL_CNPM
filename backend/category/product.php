@@ -30,9 +30,8 @@
                     <ul class="nav">
                         <li><a href="../index.php">Home</a></li>
                         <li><a href="../category/product.php">Product</a></li>
-                        <li><a href="#">office chair</a></li>
-                        <li><a href="#">gamer chair</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
+                        <li><a href="product.php?tenloai=Gaming">gamer chair</a></li>
                     </ul>
 
                     <div class="header-item_user">
@@ -123,12 +122,12 @@
                                 </ul>
                                 <ul>
                                     <li>
-                                        <span><input type="radio" name="gia_tb1"> 1500000VNĐ - 2500000VNĐ</span>
+                                        <span><input type="radio" name="gia_min"> 1500000VNĐ - 2500000VNĐ</span>
                                     </li>
                                 </ul>
                                 <ul>
                                     <li>
-                                        <span><input type="radio" name="gia_tb2"> 2500000VNĐ - 3500000VNĐ</span>
+                                        <span><input type="radio" name="gia_min"> 2500000VNĐ - 3500000VNĐ</span>
                                     </li>
                                 </ul>
                                 <ul>
@@ -136,7 +135,7 @@
                                         <span><input type="radio" name="gia_max"> 3500000VNĐ trở lên</span>
                                     </li>
                                 </ul>
-                                <input type="submit" value="chọn">
+                                <input type="submit" value="chọn" style="    margin: 4px 0 0 70%; padding: 4px 8px; box-shadow: 1px 1px #ccc;">
                             </form>';
                     ?>
                 </div>
@@ -148,6 +147,7 @@
                 <div class="product-view">
                     <!-- show product -->
                     <?php
+                    
                     if(isset($_GET['tenloai'])){
                         $loai = $_GET['tenloai'];
 
@@ -157,18 +157,18 @@
                         
                         foreach($ProductList as $item){
                             echo '
-                            <form action="" style="width: 30%;">
-                            <div class="product-item">
-                            <img style="width: 80%;" src="'.$item['img'].'">
-                            <div class="item-info">
-                            <h3>'.$item['TenSp'].'</h3>
-                            <div class="item-much" style="justify-content: center;">
-                            <p>'.$item['Gia'].'</p>
-                            <p>'.$item['Mau'].'</p>
-                            </div>
-                            </div>
-                            </div>  
-                            </form>';
+                            <a href="chitietsanpham.php?id='.$item['id'].'" style="width: 30%; color: black;">
+                                <div class="product-item">
+                                    <img style="width: 80%;" src="'.$item['img'].'">
+                                    <div class="item-info">
+                                        <h3>'.$item['TenSp'].'</h3>
+                                        <div class="item-much" style="justify-content: center;">
+                                            <p>'.$item['Gia'].'</p>
+                                            <p>'.$item['Mau'].'</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </a>';
                         }
                     }
                     else{
@@ -178,18 +178,18 @@
                         foreach($ProductList as $item){
                             
                             echo '
-                            <form action="" style="width: 30%;">
-                            <div class="product-item">
-                            <img style="width: 80%;" src="'.$item['img'].'">
-                            <div class="item-info">
-                            <h3>'.$item['TenSp'].'</h3>
-                            <div class="item-much" style="justify-content: center;">
-                            <p>'.$item['Gia'].'</p>
-                            <p>'.$item['Mau'].'</p>
-                            </div>
-                            </div>
-                            </div>  
-                            </form>';
+                            <a href="chitietsanpham.php?id='.$item['id'].'" style="width: 30%; color: black;">
+                                <div class="product-item">
+                                    <img style="width: 80%;" src="'.$item['img'].'">
+                                    <div class="item-info">
+                                        <h3>'.$item['TenSp'].'</h3>
+                                        <div class="item-much" style="justify-content: center;">
+                                            <p>'.$item['Gia'].'</p>
+                                            <p>'.$item['Mau'].'</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </a>';
                         }
                     }
                     ?>

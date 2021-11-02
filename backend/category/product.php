@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../../assets/style/style.css">
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../../assets/style/product-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -65,8 +66,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </i> |
-                    <i class="ti-shopping-cart" style="padding: 12px;"></i>
+                    </i>
                 </div>
                 </div>
             </div>

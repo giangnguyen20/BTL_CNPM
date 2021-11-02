@@ -1,5 +1,6 @@
 <?php
     require_once('../../db/dbhelper.php');
+    require_once('../giohang/ajax_request.php');
 
     $productID = $smg = '';
 
@@ -28,7 +29,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>Chi Tiết Sản Phẩm</title>
      <!-- CSS only -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -36,7 +37,7 @@
     <link rel="stylesheet" href="../../assets/style/style.css">
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../../assets/style/product-style.css">
-   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .container .chitietproduct .row .img img{
             width: 100%;
@@ -51,6 +52,27 @@
         .container .chitietproduct .row .info a:hover {
             text-decoration: underline;
         }
+
+        .cart-icon {
+            position: fixed;
+            z-index: 999;
+            right: 0;
+            top: 45%;
+        }
+
+        .cart-icon img {
+            width: 45px;
+        }
+
+        .cart-icon .cart-count {
+            background-color: red;
+            color: black;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 5px;
+            position: relative;
+            right: -16px;
+        } 
     </style>
 </head>
 
@@ -84,8 +106,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </i> |
-                    <i class="ti-shopping-cart" style="padding: 12px;"></i>
+                    </i>
                 </div>
                 </div>
             </div>
@@ -132,35 +153,41 @@
                                 </li>
                             </ul>
                         </div>
-                        
+                        <div class="info-sp" style="margin-top: 8px;">
+                            <h4>Chi tiết sản phẩm: </h4>
+                            <div class="col-md-12" style="margin-left: 32px;">
+                                <p style="margin-bottom: 0;"><?=$product['chitietsp']?></p>
+                            </div>
+                        </div>
                         <h3 style="color: red; margin: 16px 0;"><?=$product['Gia']?> VND</h3>
                         
                         <div class="color" style="margin-bottom: 20px; align-items: baseline;">
                             <label class="_2IW_UG" style="font-weight: 700; margin-bottom: 4px;">Color:</label>
                             <div class="color-item">
-                                <button class="btn btn-default" style=" box-shadow: 1px 1px 1px 1px #ccc; background-color: <?=$product['Mau']?>; color: <?if($product['Mau'] == 'White'){echo 'black';}else{echo 'white';}?>;"><?=$product['Mau']?></button>
+                                <button class="btn btn-default" style=" box-shadow: 1px 1px 1px 1px #ccc; background-color: <?=$product['Mau']?>; color: black;"><?=$product['Mau']?></button>
                             </div>
                         </div>
 
                         <div class="soluong" style="display: flex;">
-                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;">+</button>
-                            <input type="number" name="num" value="1" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px;">
-                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;">-</button>
+                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(1)">+</button>
+                            <input type="number" name="num" value="1" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px;" onchange="fixnum()">
+                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(-1)">-</button>
                         </div>
 
-                        <button class="btn btn-success" style="margin-top: 20px; width: 100%;">
+                        <button class="btn btn-success" style="margin-top: 20px; width: 100%;" onclick="addCart(<?=$product['id']?>, $('[name=num]').val())">
                             Thêm vào giỏ hàng
                         </button>
                         
-                        <button class="btn btn-success" style="width: 100%; margin-top: 20px;">Xem Giỏ Hàng</button>
+                        <button class="btn btn-success" style="width: 100%; margin-top: 20px; background-color: #ccc;">Xem Giỏ Hàng</button>
                         
                     </div>
                 </div>
             </div>
+            
         </div>
         <!-- End chi tiết sản phẩm -->
     </div>
-    
+    <!-- Sản Phẩm tương tự -->
     <div class="sanphamtuongtu" style="display: flex; margin-top: 40px;">
         <?php 
             $loai = $product['Loai'];
@@ -190,6 +217,8 @@
             }
         ?>
     </div>
+    <!-- end sản phẩm tương tự -->
+
     <!-- footer -->
     <div class="footer">
             <div class="footer-about-us">
@@ -231,6 +260,26 @@
                 <a href="#">Send Mail</a>
             </div>
         </div>
+    </div>
+    
+    <?php
+        if(!isset($_SESSION['cart'])){
+            $_SESSION['cart'] = [];
+        }
+
+        // var_dump($_SESSION['cart']);
+        $count = 0;
+        foreach($_SESSION['cart'] as $item){
+            $count += $item['SoLuong'];
+        }
+        
+    ?>
+    <!-- giỏ hàng -->
+    <span class="cart-icon">
+        <span class="cart-count"><?=$count?></span>
+        <img src="https://gokisoft.com/img/cart.png">
+    </span>
+    <!-- end giỏ hàng -->
     <!-- end footer -->
     <script>
         const open_user = document.querySelector('.js_user');
@@ -240,6 +289,26 @@
             show.classList.toggle('open');
         });
 
+        function addMoreCart(delta){
+            num = parseInt($('[name=num]').val())
+            num += delta
+            if(num < 1) num = 1
+            $('[name=num]').val(num)
+        }
+
+        function fixnum(){
+            $('[name=num]').val(Math.abs($('[name=num]').val()))
+        }
+
+        function addCart(productID, num){
+            $.post('../giohang/ajax_request.php', {
+                'action': 'cart',
+                'id': productID,
+                'num': num 
+            }, function(data){
+                location.reload()
+            })
+        }
     </script>
 </body>
 </html>

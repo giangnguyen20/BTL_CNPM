@@ -76,8 +76,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </i> |
-                    <i class="ti-shopping-cart" style="padding: 12px;"></i>
+                    </i>
                 </div>
             </div>
         </div>

@@ -87,7 +87,7 @@
             <div class="header-content">
                 <div class="header-nav">
                     <ul class="nav">
-                        <li><a href="../index.php">Home</a></li>
+                        <li><a href="../homepage/index.php">Home</a></li>
                         <li><a href="../category/product.php">Product</a></li>
                         <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
                         <li><a href="product.php?tenloai=Gaming">gamer chair</a></li>

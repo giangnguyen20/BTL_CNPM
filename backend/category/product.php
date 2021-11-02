@@ -2,6 +2,7 @@
     require_once('../../db/dbhelper.php');
     require_once('../utils/utility.php');
     require_once('../login_signup/prosess_form_login.php');
+    require_once('../giohang/ajax_request.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +17,43 @@
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../../assets/style/product-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .container .chitietproduct .row .img img{
+            width: 100%;
+            box-shadow: 0 0 4px 4px #ccc;
+        }
+
+        .container .chitietproduct .row .info a{
+            text-decoration: none;
+            color: black; 
+        }
+
+        .container .chitietproduct .row .info a:hover {
+            text-decoration: underline;
+        }
+
+        .cart-icon {
+            position: fixed;
+            z-index: 999;
+            right: 0;
+            top: 45%;
+        }
+
+        .cart-icon img {
+            width: 45px;
+        }
+
+        .cart-icon .cart-count {
+            background-color: red;
+            color: black;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 5px;
+            position: relative;
+            right: -16px;
+            top: -24px;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +67,7 @@
             <div class="header-content">
                 <div class="header-nav">
                     <ul class="nav">
-                        <li><a href="../index.php">Home</a></li>
+                        <li><a href="../homepage/index.php">Home</a></li>
                         <li><a href="../category/product.php">Product</a></li>
                         <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
                         <li><a href="product.php?tenloai=Gaming">gamer chair</a></li>
@@ -199,6 +237,25 @@
             </div>
         </div>
     </div>
+
+    <?php
+        if(!isset($_SESSION['cart'])){
+            $_SESSION['cart'] = [];
+        }
+
+        // var_dump($_SESSION['cart']);
+        $count = 0;
+        foreach($_SESSION['cart'] as $item){
+            $count += $item['SoLuong'];
+        }
+        
+    ?>
+    <!-- giỏ hàng -->
+    <span class="cart-icon">
+        <span class="cart-count"><?=$count?></span>
+        <img src="https://gokisoft.com/img/cart.png">
+    </span>
+    <!-- end giỏ hàng -->
 
     <!-- footer -->
     <div class="footer">

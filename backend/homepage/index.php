@@ -1,6 +1,7 @@
 <?php 
-    require_once('../db/dbhelper.php');
-    require_once('../backend/login_signup/prosess_form_login.php');
+    require_once('../../db/dbhelper.php');
+    require_once('../../backend/login_signup/prosess_form_login.php');
+    require_once('../giohang/ajax_request.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,8 +12,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chair Shop</title>
-    <link rel="stylesheet" href="../assets/style/style.css">
-    <link rel="stylesheet" href="../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/style/style.css">
+    <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <style>
+        .container .chitietproduct .row .img img{
+            width: 100%;
+            box-shadow: 0 0 4px 4px #ccc;
+        }
+
+        .container .chitietproduct .row .info a{
+            text-decoration: none;
+            color: black; 
+        }
+
+        .container .chitietproduct .row .info a:hover {
+            text-decoration: underline;
+        }
+
+        .cart-icon {
+            position: fixed;
+            z-index: 999;
+            right: 0;
+            top: 45%;
+        }
+
+        .cart-icon img {
+            width: 45px;
+        }
+
+        .cart-icon .cart-count {
+            background-color: red;
+            color: black;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 5px;
+            position: relative;
+            right: -16px;
+            top: -24px;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +58,7 @@
         <!-- Header -->
         <div class="header">
             <div class="header-logo">
-                <img src="../assets/imgaes/your-logo.png" alt="logo">
+                <img src="../../assets/imgaes/your-logo.png" alt="logo">
             </div>
 
             <div class="header-content">
@@ -36,10 +74,10 @@
 
                     <div class="header-nav">
                         <ul class="nav">
-                            <li><a href="../backend/index.php">Home</a></li>
-                            <li><a href="../backend/category/product.php">Product</a></li>
-                            <li><a href="category/product.php?tenloai=Văn Phòng">office chair</a></li>
-                            <li><a href="category/product.php?tenloai=Gaming">gamer chair</a></li>
+                            <li><a href="../../backend/index.php">Home</a></li>
+                            <li><a href="../../backend/category/product.php">Product</a></li>
+                            <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
+                            <li><a href="../category/product.php?tenloai=Gaming">gamer chair</a></li>
                         </ul>
                     </div>
                 </div>
@@ -63,14 +101,14 @@
                                     <?php
                                     if($user != ""){
                                         echo '
-                                        <a href="../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                        <a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
                                             <i class="ti-shift-left"></i>Đăng xuất
                                         </a>
                                         ';
                                         $user = "";
                                     }else {
                                         echo '
-                                        <a href="../backend/login_signup/login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
+                                        <a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
                                     }
                                     ?>
                                 </li>
@@ -85,7 +123,7 @@
         <!-- Banner -->
         <div class="banner">
             <div class="banner-img">
-                <img src="../assets/imgaes/banner.png" alt="banner">
+                <img src="../../assets/imgaes/banner.png" alt="banner">
                 <div class="about">
                     <div class="about-banner">
                         <p>Collection 2021</p>
@@ -178,8 +216,25 @@
                 <a href="#">Send Mail</a>
             </div>
         </div>
-    </div>
+        
+        <?php
+        if(!isset($_SESSION['cart'])){
+            $_SESSION['cart'] = [];
+        }
 
+        // var_dump($_SESSION['cart']);
+        $count = 0;
+        foreach($_SESSION['cart'] as $item){
+            $count += $item['SoLuong'];
+        }
+        
+        ?>
+        <!-- giỏ hàng -->
+        <span class="cart-icon">
+            <span class="cart-count"><?=$count?></span>
+            <img src="https://gokisoft.com/img/cart.png">
+        </span>
+        <!-- end giỏ hàng -->
 
     <script>
         const open_user = document.querySelector('.js_user');

@@ -20,7 +20,7 @@ function addToCart(){
         $_SESSION['cart'] = [];
     }
 
-    // var_dump($_SESSION['cart']);
+    var_dump($_SESSION['cart']);
     $isFind = false;
     for($i = 0; $i < count($_SESSION['cart']); $i++){
         if($_SESSION['cart'][$i]['id'] == $id){
@@ -31,7 +31,7 @@ function addToCart(){
     }
 
     if(!$isFind){
-        $sql = "select * from sanpham where id = '$id'";
+        $sql = "select * from sanpham where IDSP = '$id'";
         $product = executeSingleResult($sql);
         $product['SoLuong'] = $num;
         $_SESSION['cart'][] = $product;

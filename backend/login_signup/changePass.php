@@ -1,7 +1,7 @@
 <?php
     require_once('../utils/utility.php');
     require_once('../../db/dbhelper.php');
-    require_once('prosess_form_register.php');
+    require_once('prosess_from_change.php');
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>đăng ký</title>
+    <title>Đổi mật khẩu</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         body {
@@ -124,7 +124,7 @@
 </head>
 <body>
     <div class="center">
-        <h1>Đăng ký tài khoản</h1>
+        <h1>Đổi mật khẩu</h1>
         <h5 style="text-align: center; color: red;"><?=$smg?></h5>
         <form method="post" onsubmit="return validateForm();">
             <div class="txt_field">
@@ -133,16 +133,21 @@
                 <label>tài khoản</label>
             </div>
             <div class="txt_field">
-                <input type="password" id="pwd" name="pass" required="true"  minlength="6">
+                <input type="password" id="old_pwd" name="old_pass" required="true"  minlength="6">
                 <span></span>
-                <label>mật khẩu</label>
+                <label>mật khẩu cũ</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="new_pwd" name="new_pass" required="true"  minlength="6">
+                <span></span>
+                <label>mật khẩu mới</label>
             </div>
             <div class="txt_field">
                 <input type="password" id="confirmation_pwd" required="true" minlength="6">
                 <span></span>
-                <label>xác nhận mật khẩu</label>
+                <label>xác nhận mật khẩu mới</label>
             </div>
-            <input type="submit"  value="đăng ký">
+            <input type="submit"  value="Xác Nhận">
             <div class="sign_up_link">
                 <a href="login.php">Đăng Nhập</a>
             </div>
@@ -151,7 +156,7 @@
 
     <script type="text/javascript">
         function validateForm(){
-            $pwd = $('#pwd').val();
+            $pwd = $('#new_pwd').val();
             $confirmpwd = $('#confirmation_pwd').val();
             console.log($pwd + ' ' + $confirmpwd);
             if($pwd != $confirmpwd){

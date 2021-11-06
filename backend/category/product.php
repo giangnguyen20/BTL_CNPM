@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../../assets/style/product-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <style>
         .container .chitietproduct .row .img img{
             width: 100%;
@@ -53,6 +54,21 @@
             right: -16px;
             top: -24px;
         }
+
+        .btn {
+            background-color: #4fac00; 
+            border: 0; 
+            padding: 8px; 
+            border-radius: 4px; 
+            max-width: 50%; 
+            margin: 0 auto 32px auto;
+            box-shadow: #157347 1px 1px 1px 1px;
+        }
+
+        .btn:hover{
+            background: #157347;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -68,9 +84,9 @@
                 <div class="header-nav">
                     <ul class="nav">
                         <li><a href="../homepage/index.php">Home</a></li>
-                        <li><a href="../category/product.php">Product</a></li>
                         <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
-                        <li><a href="product.php?tenloai=Gaming">gamer chair</a></li>
+                        <li><a href="product.php?tenloai=Gaming">gaming chair</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
 
                     <div class="header-item_user">
@@ -123,6 +139,7 @@
 
                 <div class="slider-producer">
                     <ul class="nav-producer">
+                        <li><a href="product.php">Tất cả sản phẩm</a></li>
                         <?php
                             $sql = 'select tenloai from loaisp';
 
@@ -173,7 +190,7 @@
                                         <span><input type="radio" name="gia_max"> 3500000VNĐ trở lên</span>
                                     </li>
                                 </ul>
-                                <input type="submit" value="chọn" style="    margin: 4px 0 0 70%; padding: 4px 8px; box-shadow: 1px 1px #ccc;">
+                                <input type="submit" value="chọn" style="margin: 4px 0 0 70%; padding: 4px 8px; box-shadow: 1px 1px #ccc;">
                             </form>';
                     ?>
                 </div>
@@ -189,45 +206,63 @@
                     if(isset($_GET['tenloai'])){
                         $loai = $_GET['tenloai'];
 
-                        $sql = "select * from sanpham where Loai ='$loai'";
+                        $IDLoai = "select IDLoaiSP from loaisp where tenloai = '$loai'";
+                        $loaisp = executeSingleResult($IDLoai);
+                        $ID = $loaisp['IDLoaiSP'];
+
+                        $sql = "select * from sanpham
+                                inner join mau on mau.IDSP = sanpham.IDSP
+                                where IDLoai ='$ID'";
 
                         $ProductList = executeResult($sql);
                         
                         foreach($ProductList as $item){
                             echo '
-                            <a href="chitietsanpham.php?id='.$item['id'].'" style="width: 30%; color: black;">
-                                <div class="product-item">
-                                    <img style="width: 80%;" src="'.$item['img'].'">
-                                    <div class="item-info">
-                                        <h3>'.$item['TenSp'].'</h3>
-                                        <div class="item-much" style="justify-content: center;">
-                                            <p>'.$item['Gia'].'</p>
-                                            <p>'.$item['Mau'].'</p>
+                            <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
+                                <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
+                                    <div class="product-item">
+                                        <img style="width: 70%;" src="'.$item['anh'].'">
+                                        <div class="item-info">
+                                            <h3>'.$item['TenSp'].'</h3>
+                                            <div class="item-much" style="justify-content: center;">
+                                                <p>'.$item['Gia'].'</p>
+                                                <p>'.$item['TenMau'].'</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>  
-                            </a>';
+                                </a>
+                                <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
+                                        Thêm Giỏ hàng
+                                    </button>
+                            </div>';
                         }
                     }
                     else{
-                        $sql = 'select * from sanpham';
+                        $sql = 'select * from sanpham  
+                                inner join mau on mau.IDSP = sanpham.IDSP';
                         $ProductList = executeResult($sql);
                         
+
                         foreach($ProductList as $item){
                             
                             echo '
-                            <a href="chitietsanpham.php?id='.$item['id'].'" style="width: 30%; color: black;">
-                                <div class="product-item">
-                                    <img style="width: 80%;" src="'.$item['img'].'">
-                                    <div class="item-info">
-                                        <h3>'.$item['TenSp'].'</h3>
-                                        <div class="item-much" style="justify-content: center;">
-                                            <p>'.$item['Gia'].'</p>
-                                            <p>'.$item['Mau'].'</p>
+                            <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
+                                <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
+                                    <div class="product-item">
+                                        <img style="width: 70%;" src="'.$item['anh'].'">
+                                        <div class="item-info">
+                                            <h3>'.$item['TenSp'].'</h3>
+                                            <div class="item-much" style="justify-content: center;">
+                                                <p>'.$item['Gia'].'</p>
+                                                <p>'.$item['TenMau'].'</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>  
-                            </a>';
+                                    </div>  
+                                </a>
+                                <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
+                                    Thêm Giỏ hàng
+                                </button>
+                            </div>';
                         }
                     }
                     ?>
@@ -309,6 +344,15 @@
             show.classList.toggle('open');
         });
 
+        function addCart(productID, num){
+            $.post('../giohang/ajax_request.php', {
+                'action': 'cart',
+                'id': productID,
+                'num': num 
+            }, function(data){
+                location.reload()
+            })
+        }
     </script>
 </body>
 

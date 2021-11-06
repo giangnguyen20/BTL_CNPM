@@ -7,7 +7,12 @@
     if(isset($_GET['id'])){
         $productID = $_GET['id']; 
         
-        $sql = "select * from sanpham where id = '$productID'";
+            $sql = "select * from sanpham 
+                    inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai
+                    where IDSP = '$productID'";
+
+        $sqlMau = "select * from mau where IDSP = '$productID'";
+        $productMau = executeResult($sqlMau);
 
         $product = executeSingleResult($sql);
         $isSoluong = $product['SoLuong'];
@@ -88,9 +93,9 @@
                 <div class="header-nav">
                     <ul class="nav">
                         <li><a href="../homepage/index.php">Home</a></li>
-                        <li><a href="../category/product.php">Product</a></li>
                         <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
-                        <li><a href="product.php?tenloai=Gaming">gamer chair</a></li>
+                        <li><a href="product.php?tenloai=Gaming">gaming chair</a></li>
+                        <li><a href="#">About</a></li>
                     </ul>
 
                     <div class="header-item_user">
@@ -118,11 +123,11 @@
             <div class="chitietproduct" style="margin-bottom: 40px;">
                 <div class="row" style="margin-top: 80px;">
                     <div class="col-md-6 img">
-                        <img src="<?=$product['img']?>" alt="ảnh sản phẩm">
+                        <img src="<?=$productMau[0]['anh']?>" alt="ảnh sản phẩm">
                     </div>
                     <div class="col-md-6 info" style="display: flex; flex-direction: column;">
                         <p><a href="../">Trang chủ</a> / <a href="product.php">Sản Phẩm</a> / <?=$product['TenSp']?></p>
-                        <h2>Ghế <?=$product['Loai']?> <?=$product['TenSp']?></h2>
+                        <h2><?=$product['TenSp']?></h2>
                         <div class="col-md-12">
                             <ul style="display: flex; list-style-type: none; margin: 0px; padding: 0px;">
                                 <li style="color: orange; font-size: 13pt; padding-top: 2px; margin-right: 5px;">5.0</li>
@@ -161,12 +166,6 @@
                         </div>
                         <h3 style="color: red; margin: 16px 0;"><?=$product['Gia']?> VND</h3>
                         
-                        <div class="color" style="margin-bottom: 20px; align-items: baseline;">
-                            <label class="_2IW_UG" style="font-weight: 700; margin-bottom: 4px;">Color:</label>
-                            <div class="color-item">
-                                <button class="btn btn-default" style=" box-shadow: 1px 1px 1px 1px #ccc; background-color: <?=$product['Mau']?>; color: black;"><?=$product['Mau']?></button>
-                            </div>
-                        </div>
 
                         <div class="soluong" style="display: flex;">
                             <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(1)">+</button>
@@ -174,7 +173,7 @@
                             <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(-1)">-</button>
                         </div>
 
-                        <button class="btn btn-success" style="margin-top: 20px; width: 100%;" onclick="addCart(<?=$product['id']?>, $('[name=num]').val())">
+                        <button class="btn btn-success" style="margin-top: 20px; width: 100%;" onclick="addCart(<?=$product['IDSP']?>, $('[name=num]').val())">
                             Thêm vào giỏ hàng
                         </button>
                         
@@ -188,32 +187,33 @@
         <!-- End chi tiết sản phẩm -->
     </div>
     <!-- Sản Phẩm tương tự -->
-    <div class="sanphamtuongtu" style="display: flex; margin-top: 40px;">
+    <div class="sanphamtuongtu" style="display: flex; margin-top: 40px; flex-wrap: wrap;">
         <?php 
-            $loai = $product['Loai'];
-            $sqlLoai = "select * from sanpham where Loai = '$loai' and id != '$productID'";
+            $loai = $product['IDLoai'];
+            $tensp = $product['TenSp'];
+
+            $sqlLoai = "select * from sanpham 
+                        inner join mau on mau.IDSP = sanpham.IDSP
+                        where IDLoai = '$loai' and Tensp != '$tensp'";
+
             $producttuongtu = executeResult($sqlLoai);
 
-            $index = 0;
 
             foreach($producttuongtu as $item){
-                if($index < 4){
-                    $index += 1;
                     echo '
-                    <a href="chitietsanpham.php?id='.$item['id'].'" style="width: 25%; color: black;">
+                        <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 60%;" src="'.$item['img'].'">
+                                <img style="width: 60%;" src="'.$item['anh'].'">
                                 <div class="item-info">
                                     <h5 style="margin: 0 auto;">'.$item['TenSp'].'</h5>
                                     <div class="item-much" style="justify-content: center;">
                                         <p>'.$item['Gia'].'</p>
-                                        <p>'.$item['Mau'].'</p>
+                                        <p>'.$item['TenMau'].'</p>
                                     </div>
                                 </div>
                             </div>  
                         </a>
                     ';
-                }
             }
         ?>
     </div>
@@ -309,6 +309,7 @@
                 location.reload()
             })
         }
+        
     </script>
 </body>
 </html>

@@ -138,6 +138,9 @@
             </div>
             <input type="submit" value="Login">
             <div class="sign_up_link">
+                <a href="changePass.php">Đổi mật khẩu</a>
+            </div>
+            <div class="sign_up_link">
                 Not a member? <a href="signup.php">Sign Up</a>
             </div>
         </form>

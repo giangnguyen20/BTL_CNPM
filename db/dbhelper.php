@@ -28,6 +28,7 @@ function executeSingleResult($sql){
     $con=mysqli_connect(HOST,USERNAME,PASSWORD,DATABSE);
 
     $result= mysqli_query($con, $sql);
+    
     $row = mysqli_fetch_array($result,1);
 
     mysqli_close($con);

@@ -15,12 +15,12 @@ if(!empty($_POST)){
         $smg = "Tài khoản không tồn tại";
     }
     else{
-        $check = "select UserName, PhanQuyen from account where UserName = '$user' and PassWord = '$pwd'";
+        $check = "select UserName, PhanQuyen from account where UserName = '$user' and pwd = '$pwd'";
         $checkpwd = executeSingleResult($check);
         
         if($checkpwd != null){
             if($checkpwd['PhanQuyen'] == 0){
-                header('Location: ../');
+                header('Location: ../homepage/');
                 die();
             }
             else{

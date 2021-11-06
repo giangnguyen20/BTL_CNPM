@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="../../assets/style/style.css">
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <style>
+        .header {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            width: 100%;
+        }
         .container .chitietproduct .row .img img{
             width: 100%;
             box-shadow: 0 0 4px 4px #ccc;
@@ -75,9 +81,9 @@
                     <div class="header-nav">
                         <ul class="nav">
                             <li><a href="../../backend/index.php">Home</a></li>
-                            <li><a href="../../backend/category/product.php">Product</a></li>
                             <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
-                            <li><a href="../category/product.php?tenloai=Gaming">gamer chair</a></li>
+                            <li><a href="../category/product.php?tenloai=Gaming">gaming chair</a></li>
+                            <li><a href="#">About</a></li>
                         </ul>
                     </div>
                 </div>
@@ -140,31 +146,29 @@
         <!-- Product -->
         <div class="product">
             <div class="heading">
-                <h1>PRODUCT</h1>
+                <h1>Sản phẩm mới</h1>
             </div>
 
             <div class="product-view">
                 <!-- show product -->
                 <?php
-                    $sql = 'select * from sanpham';
+                    $sql = 'select * from sanpham  
+                            inner join mau on mau.IDSP = sanpham.IDSP
+                            where create_time > "2021-10-29"';
                     $ProductList = executeResult($sql);
                     
-                    $index = 0;
+                    // var_dump($ProductList);
 
                     foreach($ProductList as $item){
-                        $index++;
-                        if($index > 8){
-                            break;
-                        }
                         echo '
-                        <a href="category/chitietsanpham.php?id='.$item['id'].'" style="width: 25%; color: black;">
+                        <a href="../category/chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 80%;" src="'.$item['img'].'">
+                                <img style="width: 70%;" src="'.$item['anh'].'">
                                 <div class="item-info">
                                     <h3>'.$item['TenSp'].'</h3>
                                     <div class="item-much" style="justify-content: center;">
                                         <p>'.$item['Gia'].'</p>
-                                        <p>'.$item['Mau'].'</p>
+                                        <p>'.$item['TenMau'].'</p>
                                     </div>
                                 </div>
                             </div>  

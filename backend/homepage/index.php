@@ -222,16 +222,16 @@
         </div>
         
         <?php
-        if(!isset($_SESSION['cart'])){
-            $_SESSION['cart'] = [];
-        }
+            if(!isset($_SESSION['cart'])){
+                $_SESSION['cart'] = [];
+            }
 
-        // var_dump($_SESSION['cart']);
-        $count = 0;
-        foreach($_SESSION['cart'] as $item){
-            $count += $item['SoLuong'];
-        }
-        
+            $sqlSL = "select * from giohang";
+            $SLGH = executeResult($sqlSL);
+            $count = 0;
+            foreach($SLGH as $item){
+                $count++;
+            } 
         ?>
         <!-- giỏ hàng -->
         <span class="cart-icon">
@@ -247,7 +247,12 @@
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
-    
+        
+        const giohang = document.querySelector('.cart-icon');
+
+        giohang.addEventListener('click', () =>{
+            window.location= "../giohang/xemgiohang.php";
+        });
     </script>
 </body>
 

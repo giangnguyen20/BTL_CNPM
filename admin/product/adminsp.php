@@ -64,23 +64,23 @@ if(isset($_GET['delete_id'])){
 					$index=1;
 					foreach ($categoryList as $item){
 						echo '				
-					<tr>
-						<td>'.$index++.'</td>
-						<td>'.$item['TenSp'].'</td>
-						<td>'.$item['IDHangSX'].'</td>
-						<td>'.$item['Mau'].'</td>
-						<td>'.$item['Loai'].'</td>
-						<td>'.$item['Gia'].'</td>
-						<td>'.$item['SoLuong'].'</td>
-						<td><img src="'.$item['img'].'"
-						style="max-width:100px"/></td>
-						<td>
-							<a href="addsp.php?id='.$item['id'].'"><button class="btn btn-warning">Sửa</button></a>
-						</td>
-						<td>
-							<a href="?delete_id='.$item['id'].'"><button class="btn btn-danger">Xoá</button></a>
-						</td>
-					</tr>';
+						<tr>
+							<td>'.$index++.'</td>
+							<td>'.$item['TenSp'].'</td>
+							<td>'.$item['IDHangSX'].'</td>
+							<td>'.$item['Mau'].'</td>
+							<td>'.$item['Loai'].'</td>
+							<td>'.$item['Gia'].'</td>
+							<td>'.$item['SoLuong'].'</td>
+							<td><img src="'.$item['img'].'"
+							style="max-width:100px"/></td>
+							<td>
+								<a href="addsp.php?id='.$item['id'].'"><button class="btn btn-warning">Sửa</button></a>
+							</td>
+							<td>
+								<a href="?delete_id='.$item['id'].'"><button class="btn btn-danger">Xoá</button></a>
+							</td>
+						</tr>';
 					}
 					?>
 					</tbody>

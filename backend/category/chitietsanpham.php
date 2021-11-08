@@ -177,7 +177,7 @@
                             Thêm vào giỏ hàng
                         </button>
                         
-                        <button class="btn btn-success" style="width: 100%; margin-top: 20px; background-color: #ccc;">Xem Giỏ Hàng</button>
+                        <a href="../giohang/xemgiohang.php" class="btn btn-success" style="width: 100%; margin-top: 20px; background-color: #ccc;">Xem Giỏ Hàng</a>
                         
                     </div>
                 </div>
@@ -267,12 +267,12 @@
             $_SESSION['cart'] = [];
         }
 
-        // var_dump($_SESSION['cart']);
+        $sqlSL = "select * from giohang";
+        $SLGH = executeResult($sqlSL);
         $count = 0;
-        foreach($_SESSION['cart'] as $item){
-            $count += $item['SoLuong'];
+        foreach($SLGH as $item){
+            $count++;
         }
-        
     ?>
     <!-- giỏ hàng -->
     <span class="cart-icon">
@@ -309,6 +309,12 @@
                 location.reload()
             })
         }
+
+        const giohang = document.querySelector('.cart-icon');
+
+        giohang.addEventListener('click', () =>{
+            window.location= "../giohang/xemgiohang.php";
+        });
         
     </script>
 </body>

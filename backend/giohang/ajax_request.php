@@ -19,21 +19,25 @@ function addToCart(){
     if(!isset($_SESSION['cart'])){
         $_SESSION['cart'] = [];
     }
+    else{
+        $sql = "select * from sanpham 
+                inner join mau on mau.IDSP = sanpham.IDSP
+                where sanpham.IDSP = '$id'";
+        $sanphamthem = executeSingleResult($sql);
+        $tenSP = $sanphamthem['TenSp'];
+        $IDMau = $sanphamthem['IDMau'];
+        $gia = $sanphamthem['Gia'];
+        $anh = $sanphamthem['anh'];
+        $isFind = executeSingleResult("select * from giohang where TenSP = '$tenSP'");
+        if($isFind == null){
+            $sqlgiohang = "insert into giohang(IDGioHang, TenSP, SoLuong, TenMau, Gia, anh) 
+                            values(null, '$tenSP', '$num', '$IDMau', '$gia', '$anh')";
 
-    var_dump($_SESSION['cart']);
-    $isFind = false;
-    for($i = 0; $i < count($_SESSION['cart']); $i++){
-        if($_SESSION['cart'][$i]['id'] == $id){
-            $_SESSION['cart'][$i]['num'] += $num;
-            $isFind = true;
-            break;
+            execute($sqlgiohang);
         }
-    }
-
-    if(!$isFind){
-        $sql = "select * from sanpham where IDSP = '$id'";
-        $product = executeSingleResult($sql);
-        $product['SoLuong'] = $num;
-        $_SESSION['cart'][] = $product;
+        else{
+            $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num' where TenSP = '$tenSP'";
+            execute($sqlgiohang);
+        }
     }
 }

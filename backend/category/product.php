@@ -54,6 +54,7 @@
             position: relative;
             right: -16px;
             top: -24px;
+            z-index: 999;
         }
 
         .btn {

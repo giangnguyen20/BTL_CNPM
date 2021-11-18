@@ -13,16 +13,22 @@
 
         $sqlMau = "select * from mau where IDSP = '$productID'";
         $productMau = executeResult($sqlMau);
-
-        $product = executeSingleResult($sql);
-        $isSoluong = $product['SoLuong'];
         
-        if($isSoluong == 0){
-            $smg = 'Sản phẩm hiện đã hết hàng';
+        $product = executeSingleResult($sql);
+
+        if($product == null){
+            $smg = "Sản phẩm không tồn tại";
+        }
+        else{
+            $isSoluong = $product['SoLuong'];
+            
+            if($isSoluong == 0){
+                $smg = 'Sản phẩm hiện đã hết hàng';
+            }
         }
     }
     else{
-        header('Location: ../');
+        header('Location: product.php');
     }
 
     
@@ -77,6 +83,7 @@
             border-radius: 5px;
             position: relative;
             right: -16px;
+            z-index: 999;
         } 
     </style>
 </head>
@@ -121,85 +128,102 @@
         <!-- chi tiết sản phẩm -->
         <div class="container">
             <div class="chitietproduct" style="margin-bottom: 40px;">
-                <div class="row" style="margin-top: 80px;">
-                    <div class="col-md-6 img">
-                        <img src="<?=$productMau[0]['anh']?>" alt="ảnh sản phẩm">
-                    </div>
-                    <div class="col-md-6 info" style="display: flex; flex-direction: column;">
-                        <p><a href="../">Trang chủ</a> / <a href="product.php">Sản Phẩm</a> / <?=$product['TenSp']?></p>
-                        <h2><?=$product['TenSp']?></h2>
-                        <div class="col-md-12">
-                            <ul style="display: flex; list-style-type: none; margin: 0px; padding: 0px;">
-                                <li style="color: orange; font-size: 13pt; padding-top: 2px; margin-right: 5px;">5.0</li>
-                                <li style="color: orange; padding: 2px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                </li>
-                                <li style="color: orange; padding: 2px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                </li>
-                                <li style="color: orange; padding: 2px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                </li>
-                                <li style="color: orange; padding: 2px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                </li>
-                                <li style="color: orange; padding: 2px;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
-                                    </svg>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="info-sp" style="margin-top: 8px;">
-                            <h4>Chi tiết sản phẩm: </h4>
-                            <div class="col-md-12" style="margin-left: 32px;">
-                                <p style="margin-bottom: 0;"><?=$product['chitietsp']?></p>
+                <?php 
+                    if($smg == '' || $smg == 'Sản phẩm hiện đã hết hàng'){
+                        echo '
+                        <div class="row" style="margin-top: 80px;">
+                            <div class="col-md-6 img">
+                                <img src="'.$productMau[0]['anh'].'" alt="ảnh sản phẩm">
+                            </div>
+                            <div class="col-md-6 info" style="display: flex; flex-direction: column;">
+                                <p><a href="../">Trang chủ</a> / <a href="product.php">Sản Phẩm</a> / '.$product['TenSp'].'</p>
+                                <h2>'.$product['TenSp'].'</h2>
+                                <div class="col-md-12">
+                                    <ul style="display: flex; list-style-type: none; margin: 0px; padding: 0px;">
+                                        <li style="color: orange; font-size: 13pt; padding-top: 2px; margin-right: 5px;">5.0</li>
+                                        <li style="color: orange; padding: 2px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                            </svg>
+                                        </li>
+                                        <li style="color: orange; padding: 2px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                            </svg>
+                                        </li>
+                                        <li style="color: orange; padding: 2px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                            </svg>
+                                        </li>
+                                        <li style="color: orange; padding: 2px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                            </svg>
+                                        </li>
+                                        <li style="color: orange; padding: 2px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+                                            </svg>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="info-sp" style="margin-top: 8px;">
+                                    <h4>Chi tiết sản phẩm: </h4>
+                                    <div class="col-md-12" style="margin-left: 32px;">
+                                        <p style="margin-bottom: 0;">'.$product['chitietsp'].'</p>
+                                    </div>
+                                </div>
+                                <h3 style="color: red; margin: 16px 0;">'.$product['Gia'].' VND</h3>
+                                
+        
+                                <div class="soluong" style="display: flex;">
+                                    <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(1)">+</button>
+                                    <input type="number" name="num" value="1" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px;" onchange="fixnum()">
+                                    <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(-1)">-</button>
+                                </div>
+
+                                <div class="smg"><p style="color: red;">'.$smg.'</p></div>
+        
+                                <button class="btn btn-success" style="margin-top: 20px; width: 100%;" onclick="addCart('.$product['IDSP'].', $(\'[name=num]\').val())">
+                                    Thêm vào giỏ hàng
+                                </button>
+                                
+                                <a href="../giohang/xemgiohang.php" class="btn btn-success" style="width: 100%; margin-top: 20px; background-color: #ccc;">Xem Giỏ Hàng</a>
+                                
                             </div>
                         </div>
-                        <h3 style="color: red; margin: 16px 0;"><?=$product['Gia']?> VND</h3>
-                        
-
-                        <div class="soluong" style="display: flex;">
-                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(1)">+</button>
-                            <input type="number" name="num" value="1" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px;" onchange="fixnum()">
-                            <button class="btn btn-light" style="border: solid grey 1px; border-radius: 4px;" onclick="addMoreCart(-1)">-</button>
-                        </div>
-
-                        <button class="btn btn-success" style="margin-top: 20px; width: 100%;" onclick="addCart(<?=$product['IDSP']?>, $('[name=num]').val())">
-                            Thêm vào giỏ hàng
-                        </button>
-                        
-                        <a href="../giohang/xemgiohang.php" class="btn btn-success" style="width: 100%; margin-top: 20px; background-color: #ccc;">Xem Giỏ Hàng</a>
-                        
-                    </div>
-                </div>
+                        ';
+                    }
+                    else{
+                        if($smg == 'Sản phẩm không tồn tại')
+                            echo '
+                                <div class="row" style="margin-top: 120px;">
+                                    <h2 style="color: red;">'.$smg.'!</h2>
+                                </div>
+                            '; 
+                    }
+                ?>
             </div>
-            
         </div>
         <!-- End chi tiết sản phẩm -->
     </div>
     <!-- Sản Phẩm tương tự -->
     <div class="sanphamtuongtu" style="display: flex; margin-top: 40px; flex-wrap: wrap;">
         <?php 
-            $loai = $product['IDLoai'];
-            $tensp = $product['TenSp'];
+            if($smg == ''){
 
-            $sqlLoai = "select * from sanpham 
-                        inner join mau on mau.IDSP = sanpham.IDSP
-                        where IDLoai = '$loai' and Tensp != '$tensp'";
-
-            $producttuongtu = executeResult($sqlLoai);
-
-
-            foreach($producttuongtu as $item){
+                $loai = $product['IDLoai'];
+                $tensp = $product['TenSp'];
+                
+                $sqlLoai = "select * from sanpham 
+                inner join mau on mau.IDSP = sanpham.IDSP
+                where IDLoai = '$loai' and Tensp != '$tensp'";
+                
+                $producttuongtu = executeResult($sqlLoai);
+                
+                
+                foreach($producttuongtu as $item){
                     echo '
                         <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
@@ -214,6 +238,7 @@
                             </div>  
                         </a>
                     ';
+                }
             }
         ?>
     </div>

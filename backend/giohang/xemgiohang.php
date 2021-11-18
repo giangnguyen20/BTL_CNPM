@@ -1,6 +1,7 @@
 <?php
     require_once('ajax_request.php');
     require_once('../utils/utility.php');
+    require_once('ajax_request_pay.php');
 
     $GH = executeResult("select * from giohang inner join mau on mau.IDMau = giohang.TenMau");
     //chưa hoàn thành xóa
@@ -15,11 +16,20 @@
     }
 
     if(isset($_POST['SL'])){
+        $update_time = date('Y-m-d H:i:s');
         $id = $_POST['id'];
         $SL = $_POST['SL'];
         foreach($GH as $item){
-            if($item['IDGioHang'] == $id){
-                execute("update giohang set SoLuong = '$SL' where IDGioHang = '$id'");
+            if($SL == 0){
+                if($item['IDGioHang'] == $id){
+                    execute("delete from giohang where IDGioHang = '$id'");
+                }
+            }
+            else
+            {   
+                if($item['IDGioHang'] == $id){
+                    execute("update giohang set SoLuong = '$SL', update_time = '$update_time' where IDGioHang = '$id'");
+                }
             }
         }
         header('Location: xemgiohang.php');
@@ -49,6 +59,7 @@
     <link rel="stylesheet" href="../../assets/style/style.css">
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../../assets/style/product-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         a:hover {
             text-decoration: none;
@@ -108,26 +119,25 @@
 			</thead>
             <tbody>
                 <?php
-                    if(!isset($_SESSION['cart'])){
-                        $_SESSION['cart'] = [];
-                    }
-                    
                     $tong = [];
                     $index = 0;
+                    
+                    $thanhgiaint = 0;
                     
 
                     foreach($GH as $item){
 
                         $gia = explode(",", $item['Gia']); 
+                        
                         $thanhgia = '';
+                        $sthanhgia = '';
 
                         foreach($gia as $i){
                             $thanhgia .=  $i;
                         }
 
                         $thanhgia = (int)$thanhgia * $item['SoLuong'];
-                        $tong[$index] = $thanhgia; 
-                        $sthanhgia = '';
+                        $tong[$index] = $thanhgia;                       
 
                         $thanhgia = str_split($thanhgia);
                         //thêm dấu ,
@@ -191,7 +201,7 @@
                             <td>
                                 <form method="post">
                                     <input type="text" name="id" value="'.$item['IDGioHang'].'" style="display: none;">
-                                    <input type="number" name="SL" value="'.$item['SoLuong'].'" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px; float: left;" onchange="fixnum()">
+                                    <input type="text" name="SL" value="'.$item['SoLuong'].'" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px; float: left;" onchange="fixnum()">
                                     <input type="submit" value="OK" style="margin-left: 4px; margin-top: 4px;">
                                 </form>
                             </td>
@@ -283,7 +293,16 @@
                             echo $stonggia;
                         ?>
                     </td>
-                    <td><a href="#"><button class="btn btn-success">Thanh toán</button></a></td>
+                    <td>
+                        <?php
+                            $t = 0;
+                            foreach($tong as $item){
+                                $t += $item;
+                            }
+                            echo '<button class="btn btn-success" onclick="thanhtoan('.$t.')">Thanh toán</button>';
+                        ?>
+                        
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -329,19 +348,17 @@
             <a href="#">Send Mail</a>
         </div>
     </div>
+
     <script>
-
-        function fixnum(){
-            $('[name=num]').val(Math.abs($('[name=num]').val()))
-        }
-
-        function fixnum(){
-            $('[name=num]').val(Math.abs($('[name=num]').val()))
-            num = parseInt($('[name=num]').val())
-
-            if(num < 1) 
-                num = 1
-            $('[name=num]').val(num)
+        function thanhtoan(thanhgia){
+            console.log(thanhgia);
+            $.post('ajax_request_pay.php', {
+                'action': 'pay',
+                'tonggia': thanhgia
+            }, 
+            function(data){
+                location.reload()
+            })
         }
     </script>
 </body>

@@ -55,6 +55,7 @@
             position: relative;
             right: -16px;
             top: -24px;
+            z-index: 999;
         }
     </style>
 </head>
@@ -93,29 +94,16 @@
                         <div class="subnav-user">
                             <ul>
                                 <li>
-                                    <?php
-
-                                        if($user != ""){
-                                            echo $user;
-                                        }else{
-                                            echo "Người dùng chưa đăng nhập!";
-                                        }
-                                    ?>
+                                    Nguoi Dung
                                 </li>
-                                <li><i class="ti-help"></i> Trợ giúp</li>
+                                <li><a href="../login_signup/chagePass.php">Doi Mat Khau</a></li>
                                 <li>
                                     <?php
-                                    if($user != ""){
                                         echo '
                                         <a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
                                             <i class="ti-shift-left"></i>Đăng xuất
                                         </a>
                                         ';
-                                        $user = "";
-                                    }else {
-                                        echo '
-                                        <a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
-                                    }
                                     ?>
                                 </li>
                             </ul>
@@ -154,7 +142,7 @@
                 <?php
                     $sql = 'select * from sanpham  
                             inner join mau on mau.IDSP = sanpham.IDSP
-                            where create_time > "2021-10-29"';
+                            group by sanpham.IDSP desc limit 4';
                     $ProductList = executeResult($sql);
                     
                     // var_dump($ProductList);

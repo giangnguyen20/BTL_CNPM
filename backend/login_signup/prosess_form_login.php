@@ -1,4 +1,5 @@
 <?php
+require_once('../../db/dbhelper.php');
 
 $user = $pwd = $smg ='';
 
@@ -15,11 +16,20 @@ if(!empty($_POST)){
         $smg = "Tài khoản không tồn tại";
     }
     else{
-        $check = "select UserName, PhanQuyen from account where UserName = '$user' and pwd = '$pwd'";
+        $check = "select id, UserName, PhanQuyen from account where UserName = '$user' and pwd = '$pwd'";
         $checkpwd = executeSingleResult($check);
-        
+        $id = $check['id'];
+        $checkdate = date('Y-m-d H:i:s');
         if($checkpwd != null){
             if($checkpwd['PhanQuyen'] == 0){
+                $checkGH = executeResult("select * from giohang where iduser = '$id'");
+                foreach($checkGH as $item){
+                    if($item['update_time'] > ($checkdate - 1)){
+                        $sp = $item['TenSP'];
+                        execute("delete from giohang where TenSP = '$sp'");
+                    }
+                }
+                
                 header('Location: ../homepage/');
                 die();
             }

@@ -24,20 +24,30 @@ function addToCart(){
                 inner join mau on mau.IDSP = sanpham.IDSP
                 where sanpham.IDSP = '$id'";
         $sanphamthem = executeSingleResult($sql);
-        $tenSP = $sanphamthem['TenSp'];
-        $IDMau = $sanphamthem['IDMau'];
-        $gia = $sanphamthem['Gia'];
-        $anh = $sanphamthem['anh'];
-        $isFind = executeSingleResult("select * from giohang where TenSP = '$tenSP'");
-        if($isFind == null){
-            $sqlgiohang = "insert into giohang(IDGioHang, TenSP, SoLuong, TenMau, Gia, anh) 
-                            values(null, '$tenSP', '$num', '$IDMau', '$gia', '$anh')";
+        
+        switch($sanphamthem['SoLuong']){
+            case 0:
+                die();
+                break;
+            default:
+                $tenSP = $sanphamthem['TenSp'];
+                $IDMau = $sanphamthem['IDMau'];
+                $gia = $sanphamthem['Gia'];
+                $anh = $sanphamthem['anh'];
+                $create_time = $update_time = date('Y-m-d H:i:s');
 
-            execute($sqlgiohang);
-        }
-        else{
-            $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num' where TenSP = '$tenSP'";
-            execute($sqlgiohang);
+                $isFind = executeSingleResult("select * from giohang where TenSP = '$tenSP'");
+                if($isFind == null){
+                    $sqlgiohang = "insert into giohang(IDGioHang, TenSP, iduser,SoLuong, TenMau, Gia, anh, create_time, update_time) 
+                                    values(null, '$tenSP', '2','$num', '$IDMau', '$gia', '$anh', '$create_time', '$update_time')";
+        
+                    execute($sqlgiohang);
+                }
+                else{
+                    $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num', update_time = '$update_time' where TenSP = '$tenSP'";
+                    execute($sqlgiohang);
+                }
+                break;
         }
     }
 }

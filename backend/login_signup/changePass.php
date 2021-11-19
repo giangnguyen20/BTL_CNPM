@@ -128,11 +128,6 @@
         <h5 style="text-align: center; color: red;"><?=$smg?></h5>
         <form method="post" onsubmit="return validateForm();">
             <div class="txt_field">
-                <input type="text" id="user" name="user" required="true" value="<?=$user?>">
-                <span></span>
-                <label>tài khoản</label>
-            </div>
-            <div class="txt_field">
                 <input type="password" id="old_pwd" name="old_pass" required="true"  minlength="6">
                 <span></span>
                 <label>mật khẩu cũ</label>
@@ -149,7 +144,7 @@
             </div>
             <input type="submit"  value="Xác Nhận">
             <div class="sign_up_link">
-                <a href="login.php">Đăng Nhập</a>
+                
             </div>
         </form>
     </div>

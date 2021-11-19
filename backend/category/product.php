@@ -97,27 +97,33 @@
                             <ul>
                                 <li>
                                     <?php
-                                        if($user != ""){
-                                            echo $user;
-                                        }else{
-                                            echo "Người dùng chưa đăng nhập!";
+                                        if(!empty($_SESSION['user'])){
+                                            echo 'Xin chào '.$_SESSION['user'];
+                                        }
+                                        else{
+                                            echo 'Người Dùng';
                                         }
                                     ?>
                                 </li>
-                                <li><i class="ti-help"></i> Trợ giúp</li>
+                                    <?php 
+                                        if(!empty($_SESSION['user'])){
+                                            echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
+                                        }
+                                    ?>
                                 <li>
                                     <?php
-                                    if($user != ""){
-                                        echo '
-                                        <a href="../login_signup/login.php" style="text-decoration: none; color: #000;">
-                                            <i class="ti-shift-left"></i>Đăng xuất
-                                        </a>
-                                        ';
-                                        $user = "";
-                                    }else {
-                                        echo '
-                                        <a href="../login_signup/login.php" style="text-decoration: none; color: #000;">Đăng nhập</a>';
-                                    }
+                                        if(!empty($_SESSION['user'])){
+                                            
+                                            echo '
+                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                                Đăng xuất
+                                            </a>';
+                                        }
+                                        else{
+                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                                Đăng Nhập
+                                            </a>';
+                                        }
                                     ?>
                                 </li>
                             </ul>

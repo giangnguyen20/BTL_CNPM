@@ -1,4 +1,5 @@
 <?php
+    require_once('../../backend/login_signup/prosess_form_login.php');
     require_once('ajax_request.php');
     require_once('../utils/utility.php');
     require_once('ajax_request_pay.php');
@@ -89,11 +90,35 @@
                         <div class="subnav-user">
                             <ul>
                                 <li>
-                                    Người dùng chưa đăng nhập!
+                                    <?php
+                                        if(!empty($_SESSION['user'])){
+                                            echo 'Xin chào '.$_SESSION['user'];
+                                        }
+                                        else{
+                                            echo 'Người Dùng';
+                                        }
+                                    ?>
                                 </li>
-                                <li><i class="ti-help"></i> Trợ giúp</li>
+                                    <?php 
+                                        if(!empty($_SESSION['user'])){
+                                            echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
+                                        }
+                                    ?>
                                 <li>
-                                    Đăng nhập
+                                    <?php
+                                        if(!empty($_SESSION['user'])){
+                                            
+                                            echo '
+                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                                Đăng xuất
+                                            </a>';
+                                        }
+                                        else{
+                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                                Đăng Nhập
+                                            </a>';
+                                        }
+                                    ?>
                                 </li>
                             </ul>
                         </div>
@@ -350,6 +375,13 @@
     </div>
 
     <script>
+        const open_user = document.querySelector('.js_user');
+        const show = document.querySelector('.subnav-user');
+
+        open_user.addEventListener('click', (e) => {
+            show.classList.toggle('open');
+        });
+
         function thanhtoan(thanhgia){
             console.log(thanhgia);
             $.post('ajax_request_pay.php', {

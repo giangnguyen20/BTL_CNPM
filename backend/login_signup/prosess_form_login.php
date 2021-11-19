@@ -1,6 +1,6 @@
 <?php
 require_once('../../db/dbhelper.php');
-
+session_start();
 $user = $pwd = $smg ='';
 
 if(!empty($_POST)){
@@ -18,9 +18,9 @@ if(!empty($_POST)){
     else{
         $check = "select id, UserName, PhanQuyen from account where UserName = '$user' and pwd = '$pwd'";
         $checkpwd = executeSingleResult($check);
-        $id = $check['id'];
         $checkdate = date('Y-m-d H:i:s');
         if($checkpwd != null){
+            $id = $checkpwd['id'];
             if($checkpwd['PhanQuyen'] == 0){
                 $checkGH = executeResult("select * from giohang where iduser = '$id'");
                 foreach($checkGH as $item){
@@ -29,7 +29,7 @@ if(!empty($_POST)){
                         execute("delete from giohang where TenSP = '$sp'");
                     }
                 }
-                
+                $_SESSION['user'] = $user;
                 header('Location: ../homepage/');
                 die();
             }
@@ -42,3 +42,5 @@ if(!empty($_POST)){
         }
     }
 }
+
+

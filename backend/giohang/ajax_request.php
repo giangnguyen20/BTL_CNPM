@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once ('../utils/utility.php');
 require_once ('../../db/dbhelper.php');
 

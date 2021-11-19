@@ -2,6 +2,18 @@
     require_once('../../db/dbhelper.php');
     require_once('../../backend/login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
+    if($_SESSION['user'] != null && isset($_SESSION['user'])){
+        $us = $_SESSION['user'];
+        $idus_result = executeSingleResult("select id from account where UserName = '$us'");
+        $idus = $idus_result['id'];
+        $deleteGH = executeResult("select * from giohang where iduser = '$idus'");
+        foreach($deleteGH as $item){
+            if($item['create_time'] < date('Y-m-d')){
+                $idGH = $item['IDGioHang'];
+                execute("delete from giohang where IDGioHang = '$idGH'");
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -94,16 +106,34 @@
                         <div class="subnav-user">
                             <ul>
                                 <li>
-                                    Nguoi Dung
+                                    <?php
+                                        if(!empty($_SESSION['user'])){
+                                            echo 'Xin chào '.$_SESSION['user'];
+                                        }
+                                        else{
+                                            echo 'Người Dùng';
+                                        }
+                                    ?>
                                 </li>
-                                <li><a href="../login_signup/changePass.php">Doi Mat Khau</a></li>
+                                    <?php 
+                                        if(!empty($_SESSION['user'])){
+                                            echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
+                                        }
+                                    ?>
                                 <li>
                                     <?php
-                                        echo '
-                                        <a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
-                                            <i class="ti-shift-left"></i>Đăng xuất
-                                        </a>
-                                        ';
+                                        if(!empty($_SESSION['user'])){
+                                            
+                                            echo '
+                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                                Đăng xuất
+                                            </a>';
+                                        }
+                                        else{
+                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                                Đăng Nhập
+                                            </a>';
+                                        }
                                     ?>
                                 </li>
                             </ul>

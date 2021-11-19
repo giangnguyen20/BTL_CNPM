@@ -140,13 +140,15 @@
                 </div>
 
                 <div class="slider-producer">
+                    <h3 style="margin-left: 10%;">Loại sản phẩm:</h3>
+                    <br>
                     <ul class="nav-producer">
                         <li><a href="product.php">Tất cả sản phẩm</a></li>
                         <?php
                             $sql = 'select tenloai from loaisp';
 
                             $nhasxList = executeResult($sql);
-
+                            
                             foreach($nhasxList as $item){
                                 echo '
                                     <li><a href="product.php?tenloai='.$item['tenloai'].'">'.$item['tenloai'].'</a></li>
@@ -171,28 +173,12 @@
                         }
 
                         echo '
-                            <form action="product.php?gia='.$min.'">
-                                <ul>
-                                    <li>
-                                        <span><input type="radio" name="gia_min"> '.$min.'VNĐ - 1500000VNĐ</span>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <span><input type="radio" name="gia_min"> 1500000VNĐ - 2500000VNĐ</span>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <span><input type="radio" name="gia_min"> 2500000VNĐ - 3500000VNĐ</span>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <span><input type="radio" name="gia_max"> 3500000VNĐ trở lên</span>
-                                    </li>
-                                </ul>
-                                <input type="submit" value="chọn" style="margin: 4px 0 0 70%; padding: 4px 8px; box-shadow: 1px 1px #ccc;">
+                            <h3 style="margin-left: 10%;">Chọn Mức giá:</h3>
+                            <br>
+                            <form method="post">
+                                <input type="number" name="gia_min" value="0" style="margin-left: 10%; width: 25%;" onchange="fixnum()">
+                                <input type="number" name="gia_max" style="margin-left: 8px; width: 25%;" onchange="fixnum()">
+                                <input type="submit" value="ok">
                             </form>';
                     ?>
                 </div>
@@ -205,123 +191,25 @@
                     <!-- show product -->
                     <?php
                     
-                    if(isset($_GET['tenloai'])){
-                        $loai = $_GET['tenloai'];
-
-                        $IDLoai = "select IDLoaiSP from loaisp where tenloai = '$loai'";
-                        $loaisp = executeSingleResult($IDLoai);
-                        $ID = $loaisp['IDLoaiSP'];
-
-                        $sql = "select * from sanpham
-                                inner join mau on mau.IDSP = sanpham.IDSP
-                                where IDLoai ='$ID'";
-
-                        $ProductList = executeResult($sql);
-                        $index = 0;
-                        foreach($ProductList as $item){
-                            switch($page_num){
-                                case 1:
-                                    if($index < 9){
-                                        echo '
-                                        <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
-                                            <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
-                                                <div class="product-item">
-                                                    <img style="width: 70%;" src="'.$item['anh'].'">
-                                                    <div class="item-info">
-                                                        <h3>'.$item['TenSp'].'</h3>
-                                                        <div class="item-much" style="justify-content: center;">
-                                                            <p>'.$item['Gia'].'</p>
-                                                            <p>'.$item['TenMau'].'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
-                                            Thêm Sản Phẩm
-                                            </button>
-                                        </div>';  
-                                    }
-                                    break;
-                                default:
-                                    if($index < $page_num*9 && $index >= ($page_num - 1)*9){
-                                        echo '
-                                        <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
-                                            <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
-                                                <div class="product-item">
-                                                    <img style="width: 70%;" src="'.$item['anh'].'">
-                                                    <div class="item-info">
-                                                        <h3>'.$item['TenSp'].'</h3>
-                                                        <div class="item-much" style="justify-content: center;">
-                                                            <p>'.$item['Gia'].'</p>
-                                                            <p>'.$item['TenMau'].'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
-                                            Thêm Sản Phẩm
-                                            </button>
-                                        </div>';
-                                    }
-                                    break;
-                            }
-                            $index++;
-                        }
-                    }
-                    else{
-                        $sql = 'select * from sanpham  
-                                inner join mau on mau.IDSP = sanpham.IDSP';
-                        $ProductList = executeResult($sql);
-                        $index = 0;
-                        foreach($ProductList as $item){
-                            switch($page_num){
-                                case 1:
-                                    if($index < 9){
-                                        echo '
-                                        <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
-                                            <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
-                                                <div class="product-item">
-                                                    <img style="width: 70%;" src="'.$item['anh'].'">
-                                                    <div class="item-info">
-                                                        <h3>'.$item['TenSp'].'</h3>
-                                                        <div class="item-much" style="justify-content: center;">
-                                                            <p>'.$item['Gia'].'</p>
-                                                            <p>'.$item['TenMau'].'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
-                                                Thêm Sản Phẩm
-                                            </button>
-                                        </div>';  
-                                    }
-                                    break;
-                                default:
-                                    if($index < $page_num*9 && $index >= ($page_num - 1)*9){
-                                        echo '
-                                        <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
-                                            <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
-                                                <div class="product-item">
-                                                    <img style="width: 70%;" src="'.$item['anh'].'">
-                                                    <div class="item-info">
-                                                        <h3>'.$item['TenSp'].'</h3>
-                                                        <div class="item-much" style="justify-content: center;">
-                                                            <p>'.$item['Gia'].'</p>
-                                                            <p>'.$item['TenMau'].'</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
-                                                Thêm Sản Phẩm
-                                            </button>
-                                        </div>';
-                                    }
-                                    break;
-                            }
-                            $index++;
-                        }
+                    foreach($result as $item){
+                        echo '
+                        <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
+                            <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
+                                <div class="product-item">
+                                    <img style="width: 70%;" src="'.$item['anh'].'">
+                                    <div class="item-info">
+                                        <h3>'.$item['TenSp'].'</h3>
+                                        <div class="item-much" style="justify-content: center;">
+                                                <p>'.$item['Gia'].'</p>
+                                                <p>'.$item['TenMau'].'</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <button class="btn btn-success" onclick="addCart('.$item['IDSP'].', 1)">
+                                Thêm Sản Phẩm
+                            </button>
+                        </div>';
                     }
                     ?>
                     <!-- end code -->
@@ -329,20 +217,52 @@
                 <!-- End Product -->
                 <!-- Phân trang -->
                 <div class="page-num">
-                    <?php  
-                        $curr_page = $page_num;
-                        for($i = 1; $i <= $All_page_num + 1; $i++){
-                            if($i == $page_num){
-                                echo '
-                                    <a class="page-num" href="product.php?page='.$i.'" style="padding: 4px 8px; background: red; border: 1px solid; margin-right: 8px; color: black;">
-                                    '.$i.'
-                                    </a>';
+                    <?php
+                        if(isset($_GET['tenloai'])){
+                            $lsp = $_GET['tenloai'];
+                            if ($current_page > 1 && $total_page > 1){
+                                echo '<a href="product.php?page='.($current_page-1).'?tenloai='.$lsp.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Prev</a>';
                             }
-                            else{
-                                echo '
-                                    <a class="page-num" href="product.php?page='.$i.'" style="padding: 4px 8px; background: #ccc; border: 1px solid; margin-right: 8px; color: black;">
-                                    '.$i.'
-                                    </a>';
+                            for ($i = 1; $i <= $total_page; $i++){
+                                // Nếu là trang hiện tại thì hiển thị thẻ span
+                                // ngược lại hiển thị thẻ a
+                                if ($i == $current_page){
+                                    echo '<span style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da; color: #000; background: red;">'.$i.'</span> ';
+                                }
+                                else if($total_page < 2){
+                                    echo '<a href="product.php?page='.$i.'?tenloai='.$lsp.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'.$i.'</a>';
+                                }
+                                else{
+                                    echo '<a href="product.php?page='.$i.'?tenloai='.$lsp.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'.$i.'</a>';
+                                }
+                            }
+                            
+                            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                            if ($current_page < $total_page && $total_page > 1){
+                                echo '<a href="product.php?page='.($current_page+1).'?tenloai='.$lsp.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
+                            }
+                        }
+                        else{
+                            if ($current_page > 1 && $total_page > 1){
+                                echo '<a href="product.php?page='.($current_page-1).'" style="padding: 8px; border: 1px solid #8e80da">Prev</a>';
+                            }
+                            for ($i = 1; $i <= $total_page; $i++){
+                                // Nếu là trang hiện tại thì hiển thị thẻ span
+                                // ngược lại hiển thị thẻ a
+                                if ($i == $current_page){
+                                    echo '<span  style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da; color: #000; background: red;">'.$i.'</span> ';
+                                }
+                                else if($total_page < 2){
+                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'.$i.'</a>';
+                                }
+                                else{
+                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'.$i.'</a>';
+                                }
+                            }
+                            
+                            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                            if ($current_page < $total_page && $total_page > 1){
+                                echo '<a href="product.php?page='.($current_page+1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
                             }
                         }
                     ?>
@@ -421,6 +341,11 @@
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
+
+        function fixnum(){
+            $('[name=gia_min]').val(Math.abs($('[name=gia_min]').val()))
+            $('[name=gia_max]').val(Math.abs($('[name=gia_max]').val()))
+        }
 
         function addCart(productID, num){
             $.post('../giohang/ajax_request.php', {

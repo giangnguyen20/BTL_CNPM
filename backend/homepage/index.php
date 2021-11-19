@@ -96,7 +96,7 @@
                                 <li>
                                     Nguoi Dung
                                 </li>
-                                <li><a href="../login_signup/chagePass.php">Doi Mat Khau</a></li>
+                                <li><a href="../login_signup/changePass.php">Doi Mat Khau</a></li>
                                 <li>
                                     <?php
                                         echo '

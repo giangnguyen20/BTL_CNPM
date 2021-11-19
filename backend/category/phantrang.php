@@ -1,39 +1,56 @@
 <?php
 require_once('../../db/dbhelper.php');
 
-$AllProduct_Sql = $AllProduct_List ='';
+$limit = 9;
+$result;
+$count = $current_page = $total_page = 0;
 
-$All_page_num = 0;
-$page_num = 1;
+if(!isset($_GET['tenloai'])){
+    // tinh tong so ban ghi
+    $records_product = executeResult("select count(IDSP) as total from sanpham");
+    $count = $records_product[0]['total'];
+    //current page
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
+    // paging
+    //tong so trang
+    $total_page = ceil((int)$count / $limit);
 
-if(!isset($_GET['tenloai'])){ 
-    $AllProduct_Sql = "select IDSP from sanpham";
-    $AllProduct_List = executeResult($AllProduct_Sql);
-    //tinh tong trang
-    foreach($AllProduct_List as $item){
-        $All_page_num++;
+    // Giới hạn current_page trong khoảng 1 đến total_page
+    if ($current_page > $total_page){
+        $current_page = $total_page;
     }
-    $All_page_num = (int)$All_page_num/9;
-
-    //kiem tra trang
-    if(isset($_GET['page'])){
-        $page_num = $_GET['page'];
+    else if ($current_page < 1){
+        $current_page = 1;
     }
+    //tim Start
+    $start = ($current_page - 1) * $limit;
+
+    //lay danh sach
+    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP LIMIT $start, $limit");
 }
 else{
-    $loai = $_GET['tenloai'];
-    $AllProduct_Sql = "select IDLoaiSP from loaisp where tenloai = '$loai'";
+    $loaisp = $_GET['tenloai'];
+    // tinh tong so ban ghi
+    $records_product = executeResult("select count(IDSP) as total from sanpham inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp'");
+    $count = $records_product[0]['total'];
 
-    $AllProduct_List = executeResult($AllProduct_Sql);
-    //tinh tong trang
-    foreach($AllProduct_List as $item){
-        $All_page_num++;
-    }
-    $All_page_num = (int)$All_page_num/9;
+    //current page
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-    //kiem tra trang
-    if(isset($_GET['page'])){
-        $page_num = $_GET['page'];
+    // paging
+    //tong so trang
+    $total_page = ceil((int)$count / $limit);
+    // Giới hạn current_page trong khoảng 1 đến total_page
+    if ($current_page > $total_page){
+        $current_page = $total_page;
     }
+    else if ($current_page < 1){
+        $current_page = 1;
+    }
+    //tim Start
+    $start = ($current_page - 1) * $limit;
+
+    //lay danh sach
+    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp'  LIMIT $start, $limit");
 }

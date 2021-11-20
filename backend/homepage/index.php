@@ -2,6 +2,8 @@
     require_once('../../db/dbhelper.php');
     require_once('../../backend/login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
+    require_once('../search/request_search.php');
+
     if($_SESSION['user'] != null && isset($_SESSION['user'])){
         $us = $_SESSION['user'];
         $idus_result = executeSingleResult("select id from account where UserName = '$us'");
@@ -26,6 +28,7 @@
     <title>Chair Shop</title>
     <link rel="stylesheet" href="../../assets/style/style.css">
     <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .header {
             position: fixed;
@@ -83,8 +86,8 @@
             <div class="header-content">
                 <div class="header-item">
                     <div class="header-item_search">
-                        <form action="" method="POST">
-                            <input type="text" style="width: 85%;">
+                        <form action="../search/request_search.php">
+                            <input type="text" name="txt_search" style="width: 85%;">
                             <button type="submit">
                                 <i class="ti-search js_search"></i>
                             </button>
@@ -271,6 +274,7 @@
         giohang.addEventListener('click', () =>{
             window.location= "../giohang/xemgiohang.php";
         });
+
     </script>
 </body>
 

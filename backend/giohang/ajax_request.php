@@ -14,15 +14,12 @@ function addToCart(){
     $id = getPost('id');
     $num = getPost('num');
 
-    if(!isset($_SESSION['cart'])){
-        $_SESSION['cart'] = [];
-    }
-    else{
         $sql = "select * from sanpham 
                 inner join mau on mau.IDSP = sanpham.IDSP
                 where sanpham.IDSP = '$id'";
-        $sanphamthem = executeSingleResult($sql);
         
+        $sanphamthem = executeSingleResult($sql);
+ 
         switch($sanphamthem['SoLuong']){
             case 0:
                 die();
@@ -47,5 +44,5 @@ function addToCart(){
                 }
                 break;
         }
-    }
+    
 }

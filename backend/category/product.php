@@ -4,6 +4,7 @@
     require_once('../login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
     require_once('phantrang.php');
+    require_once('../search/request_search.php');
 ?>
 
 <!DOCTYPE html>
@@ -139,9 +140,9 @@
             <!-- Slider -->
             <div class="slider">
                 <div class="slider-search">
-                    <from action="">
-                        <input type="text" placeholder="nhập sản phẩm cần tìm">
-                        <input type="submit" name="" value="Tìm"></input>
+                    <form action="../search/request_search.php">
+                        <input type="text" name="txt_search" placeholder="nhập sản phẩm cần tìm">
+                        <input type="submit" value="Tìm">
                     </form>
                 </div>
 

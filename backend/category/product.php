@@ -97,8 +97,9 @@
                         <div class="subnav-user">
                             <ul>
                                 <li>
-                                    <?php
-                                        if(!empty($_SESSION['user'])){
+                                    <!-- xử lý đăng nhập -->
+                                    <?php   
+                                        if(!empty($_SESSION['user'])){  //kiểm tra user đăng nhập
                                             echo 'Xin chào '.$_SESSION['user'];
                                         }
                                         else{
@@ -107,13 +108,13 @@
                                     ?>
                                 </li>
                                     <?php 
-                                        if(!empty($_SESSION['user'])){
+                                        if(!empty($_SESSION['user'])){      // nếu user thì cho phép đổi pass
                                             echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
                                         }
                                     ?>
                                 <li>
                                     <?php
-                                        if(!empty($_SESSION['user'])){
+                                        if(!empty($_SESSION['user'])){  //kiểm tra đã đăng nhập hay chưa
                                             
                                             echo '
                                             <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
@@ -151,7 +152,7 @@
                     <br>
                     <ul class="nav-producer">
                         <li><a href="product.php">Tất cả sản phẩm</a></li>
-                        <?php
+                        <?php                                                       //show loại sản phẩm
                             $sql = 'select tenloai from loaisp';
 
                             $nhasxList = executeResult($sql);
@@ -165,8 +166,8 @@
                     </ul>
                 </div>
 
-                <div class="slider-price">
-                    <?php
+                <!-- <div class="slider-price">
+                    <?php                                                           //chọn giá chưa hoàn thành
                         $sql = 'select Gia from sanpham';
 
                         $nhasxList = executeResult($sql);
@@ -188,7 +189,7 @@
                                 <input type="submit" value="ok">
                             </form>';
                     ?>
-                </div>
+                </div> -->
             </div>
             <!-- End  Slider-->
 
@@ -279,6 +280,7 @@
     </div>
 
     <?php
+        //lấy số lượng sản phẩm trong giỏ hàng 
         if(!isset($_SESSION['cart'])){
             $_SESSION['cart'] = [];
         }
@@ -345,15 +347,18 @@
         const open_user = document.querySelector('.js_user');
         const show = document.querySelector('.subnav-user');
 
+        //show menu user
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
 
+        // fix giá trị ở input
         function fixnum(){
             $('[name=gia_min]').val(Math.abs($('[name=gia_min]').val()))
             $('[name=gia_max]').val(Math.abs($('[name=gia_max]').val()))
         }
 
+        //thêm sản phẩm vào cart
         function addCart(productID, num){
             $.post('../giohang/ajax_request.php', {
                 'action': 'cart',
@@ -364,8 +369,9 @@
             })
         }
 
+        //Xem giỏ hàng
         const giohang = document.querySelector('.cart-icon');
-
+    
         giohang.addEventListener('click', () =>{
             window.location= "../giohang/xemgiohang.php";
         });

@@ -107,9 +107,9 @@
                 <div class="header-item_user">
                     <i class="ti-user js_user" style="padding: 12px;">
                         <div class="subnav-user">
-                            <ul>
+                            <ul>   
                                 <li>
-                                    <?php
+                                    <?php                                               //kiểm tra đănhg nhập
                                         if(!empty($_SESSION['user'])){
                                             echo 'Xin chào '.$_SESSION['user'];
                                         }
@@ -119,13 +119,13 @@
                                     ?>
                                 </li>
                                     <?php 
-                                        if(!empty($_SESSION['user'])){
+                                        if(!empty($_SESSION['user'])){                 // đã đăng nhập thì cho đổi mật khẩu
                                             echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
                                         }
                                     ?>
                                 <li>
                                     <?php
-                                        if(!empty($_SESSION['user'])){
+                                        if(!empty($_SESSION['user'])){                  //đã đăng nhập thì hiện đăng xuất
                                             
                                             echo '
                                             <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
@@ -243,6 +243,7 @@
         </div>
         
         <?php
+            // lấy số lượng sản phẩm có trong giỏ hàng
             if(!isset($_SESSION['cart'])){
                 $_SESSION['cart'] = [];
             }

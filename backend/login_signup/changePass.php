@@ -150,10 +150,10 @@
     </div>
 
     <script type="text/javascript">
-        function validateForm(){
+        function validateForm(){                                        // check mật khẩu mới
             $pwd = $('#new_pwd').val();
             $confirmpwd = $('#confirmation_pwd').val();
-            console.log($pwd + ' ' + $confirmpwd);
+            // console.log($pwd + ' ' + $confirmpwd);
             if($pwd != $confirmpwd){
                 alert('Mật khẩu không khớp, vui lòng kiểm tra lại');
                 return false;

@@ -3,7 +3,7 @@ require_once('../../db/dbhelper.php');
 session_start();
 $user = $pwd = $smg ='';
 
-if(!empty($_POST)){                                     // kiểm tra có yêu cầu đăng nhập
+if(isset($_POST['user'])){                                     // kiểm tra có yêu cầu đăng nhập
     $user = getPost('user');                            // lấy username đã nhập
     $pwd = getPost('pass');                             // lấy pass đã nhập
     $pwd = getSecurityMD5($pwd);                        // mã hóa pass

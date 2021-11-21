@@ -3,7 +3,7 @@ require_once ('../utils/utility.php');
 require_once ('../../db/dbhelper.php');
 
 $action = getPost('action');    // lấy ra value của cation đã được post
-
+$smg = '';
 switch($action){                // kiểm tra xem đã nhận được yêu cầu chưa
     case 'cart':                
         addToCart();
@@ -22,6 +22,7 @@ function addToCart(){
  
         switch($sanphamthem['SoLuong']){                        // kiểm tra xem số lượng còn hay không
             case 0:
+                $smg = "Sản phẩm đã hết";
                 die();
                 break;
             default:                                            // add sản phẩm vào giỏ hàng

@@ -1,10 +1,11 @@
 <?php
-    require_once('../../backend/login_signup/prosess_form_login.php');
-    require_once('ajax_request.php');
+    require_once('../../backend/login_signup/prosess_form_login.php');  
     require_once('../utils/utility.php');
     require_once('ajax_request_pay.php');
+    require_once('ajax_request.php');
 
     $GH = executeResult("select * from giohang inner join mau on mau.IDMau = giohang.TenMau");
+    
     //chưa hoàn thành xóa
     if(isset($_GET['delete_SP'])){
         $delete_SP = $_GET['delete_SP'];
@@ -16,10 +17,11 @@
         header('Location: xemgiohang.php');
     }
 
-    if(isset($_POST['SL'])){
+    if(isset($_POST['index'])){
+        $getindex =  "SL".$_POST['index'];
         $update_time = date('Y-m-d H:i:s');
         $id = $_POST['id'];
-        $SL = $_POST['SL'];
+        $SL = $_POST[$getindex];
         foreach($GH as $item){
             if($SL == 0){
                 if($item['IDGioHang'] == $id){
@@ -225,8 +227,9 @@
                             <td>'.$item['Gia'].'</td>
                             <td>
                                 <form method="post">
-                                    <input type="text" name="id" value="'.$item['IDGioHang'].'" style="display: none;">
-                                    <input type="text" name="SL" value="'.$item['SoLuong'].'" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px; float: left;" onchange="fixnum()">
+                                    <input type="number" name="index" value="'.$index.'" style="display: none;">
+                                    <input type="number" name="id" value="'.$item['IDGioHang'].'" style="display: none;">
+                                    <input type="number" name="SL'.$index.'" value="'.$item['SoLuong'].'" class="form-control" step="1" style="max-width: 90px; border: solid grey 1px; border-radius: 4px; float: left;" onchange="fixnum('.$index.')">
                                     <input type="submit" value="OK" style="margin-left: 4px; margin-top: 4px;">
                                 </form>
                             </td>
@@ -381,6 +384,11 @@
         open_user.addEventListener('click', (e) => {
             show.classList.toggle('open');
         });
+
+        function fixnum(index){
+            name = "num=SL" + index;
+            $('['+name+']').val(Math.abs($('['+name+']').val()))
+        }
 
         function thanhtoan(thanhgia){
             console.log(thanhgia);

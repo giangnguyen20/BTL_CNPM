@@ -1,5 +1,6 @@
 <?php
     require_once('../../db/dbhelper.php');
+    require_once('../../backend/login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
 
     $productID = $smg = '';
@@ -108,13 +109,37 @@
                     <div class="header-item_user">
                     <i class="ti-user js_user" style="padding: 12px;">
                         <div class="subnav-user">
-                            <ul>
+                        <ul>   
                                 <li>
-                                    Người dùng chưa đăng nhập!
+                                    <?php                                               //kiểm tra đănhg nhập
+                                        if(!empty($_SESSION['user'])){
+                                            echo 'Xin chào '.$_SESSION['user'];
+                                        }
+                                        else{
+                                            echo 'Người Dùng';
+                                        }
+                                    ?>
                                 </li>
-                                <li><i class="ti-help"></i> Trợ giúp</li>
+                                    <?php 
+                                        if(!empty($_SESSION['user'])){                 // đã đăng nhập thì cho đổi mật khẩu
+                                            echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
+                                        }
+                                    ?>
                                 <li>
-                                    Đăng nhập
+                                    <?php
+                                        if(!empty($_SESSION['user'])){                  //đã đăng nhập thì hiện đăng xuất
+                                            
+                                            echo '
+                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                                Đăng xuất
+                                            </a>';
+                                        }
+                                        else{
+                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                                Đăng Nhập
+                                            </a>';
+                                        }
+                                    ?>
                                 </li>
                             </ul>
                         </div>

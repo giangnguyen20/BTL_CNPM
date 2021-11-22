@@ -31,7 +31,12 @@
             else
             {   
                 if($item['IDGioHang'] == $id){
-                    execute("update giohang set SoLuong = '$SL', update_time = '$update_time' where IDGioHang = '$id'");
+                    $checkSL = executeSingleResult("select SoLuong,TenSP from giohang where IDGioHang = '$id'");
+                    $tensp = $checkSL['TenSP'];
+                    $SP = executeSingleResult("select SoLuong from sanpham where TenSp = '$tensp'");
+                    if($SL <= $SP['SoLuong']){
+                        execute("update giohang set SoLuong = '$SL', update_time = '$update_time' where IDGioHang = '$id'");
+                    }
                 }
             }
         }

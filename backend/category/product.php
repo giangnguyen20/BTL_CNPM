@@ -340,9 +340,8 @@
             <a href="#">Send Mail</a>
         </div>
     </div>
-
+    
     <!-- End footer -->
-
     <script>
         const open_user = document.querySelector('.js_user');
         const show = document.querySelector('.subnav-user');

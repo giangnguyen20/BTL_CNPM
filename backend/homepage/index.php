@@ -1,9 +1,9 @@
 <?php 
     require_once('../../db/dbhelper.php');
     require_once('../../backend/login_signup/prosess_form_login.php');
-    require_once('../giohang/ajax_request.php');
+    // require_once('../giohang/ajax_request.php');
     require_once('../search/request_search.php');
-
+    //
     if($_SESSION['user'] != null && isset($_SESSION['user'])){
         $us = $_SESSION['user'];
         $idus_result = executeSingleResult("select id from account where UserName = '$us'");
@@ -13,6 +13,7 @@
             if($item['create_time'] < date('Y-m-d')){
                 $idGH = $item['IDGioHang'];
                 execute("delete from giohang where IDGioHang = '$idGH'");
+
             }
         }
     }
@@ -96,7 +97,7 @@
 
                     <div class="header-nav">
                         <ul class="nav">
-                            <li><a href="../../backend/index.php">Home</a></li>
+                            <li><a href="../../backend/homepage/">Home</a></li>
                             <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
                             <li><a href="../category/product.php?tenloai=Gaming">gaming chair</a></li>
                             <li><a href="#">About</a></li>
@@ -242,25 +243,6 @@
             </div>
         </div>
         
-        <?php
-            // lấy số lượng sản phẩm có trong giỏ hàng
-            if(!isset($_SESSION['cart'])){
-                $_SESSION['cart'] = [];
-            }
-
-            $sqlSL = "select * from giohang";
-            $SLGH = executeResult($sqlSL);
-            $count = 0;
-            foreach($SLGH as $item){
-                $count++;
-            } 
-        ?>
-        <!-- giỏ hàng -->
-        <span class="cart-icon">
-            <span class="cart-count"><?=$count?></span>
-            <img src="https://gokisoft.com/img/cart.png">
-        </span>
-        <!-- end giỏ hàng -->
 
     <script>
         const open_user = document.querySelector('.js_user');
@@ -270,11 +252,11 @@
             show.classList.toggle('open');
         });
         
-        const giohang = document.querySelector('.cart-icon');
+        // const giohang = document.querySelector('.cart-icon');
 
-        giohang.addEventListener('click', () =>{
-            window.location= "../giohang/xemgiohang.php";
-        });
+        // giohang.addEventListener('click', () =>{
+        //     window.location= "../giohang/xemgiohang.php";
+        // });
 
     </script>
 </body>

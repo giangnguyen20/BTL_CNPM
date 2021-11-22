@@ -7,7 +7,7 @@ $count = $current_page = $total_page = 0;
 
 if(!isset($_GET['tenloai'])){
     // tinh tong so ban ghi
-    $records_product = executeResult("select count(IDSP) as total from sanpham");
+    $records_product = executeResult("select count(IDSP) as total from sanpham where SoLuong > 0");
     $count = $records_product[0]['total'];
     //current page
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -27,12 +27,12 @@ if(!isset($_GET['tenloai'])){
     $start = ($current_page - 1) * $limit;
 
     //lay danh sach
-    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP LIMIT $start, $limit");
+    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP where SoLuong > 0 LIMIT $start, $limit");
 }
 else{
     $loaisp = $_GET['tenloai'];
     // tinh tong so ban ghi
-    $records_product = executeResult("select count(IDSP) as total from sanpham inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp'");
+    $records_product = executeResult("select count(IDSP) as total from sanpham inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp' and sanpham.SoLuong > 0");
     $count = $records_product[0]['total'];
 
     //current page
@@ -52,5 +52,5 @@ else{
     $start = ($current_page - 1) * $limit;
 
     //lay danh sach
-    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp'  LIMIT $start, $limit");
+    $result = executeResult("select * FROM sanpham inner join mau on mau.IDSP = sanpham.IDSP inner join loaisp on loaisp.IDLoaiSP = sanpham.IDLoai where loaisp.tenloai = '$loaisp' and SoLuong > 0 LIMIT $start, $limit");
 }

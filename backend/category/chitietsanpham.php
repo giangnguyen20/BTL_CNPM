@@ -154,7 +154,7 @@
         <div class="container">
             <div class="chitietproduct" style="margin-bottom: 40px;">
                 <?php 
-                    if($smg == '' || $smg == 'Sản phẩm hiện đã hết hàng'){
+                    if($smg == '' || $smg == 'Sản phẩm hiện đã hết hàng' || $smg == 'Sản phẩm không đủ hàng yêu cầu!'){
                         echo '
                         <div class="row" style="margin-top: 80px;">
                             <div class="col-md-6 img">

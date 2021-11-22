@@ -1,10 +1,11 @@
 <?php
 require_once ('../utils/utility.php');
 require_once ('../../db/dbhelper.php');
+require_once('../login_signup/prosess_form_login.php');
 
-$action = getPost('action');    // lấy ra value của cation đã được post
+$action = getPost('action');    // get value cation
 $smg = '';
-switch($action){                // kiểm tra xem đã nhận được yêu cầu chưa
+switch($action){                // kiểm tra yêu cầu
     case 'cart':                
         addToCart();
         break;
@@ -34,15 +35,36 @@ function addToCart(){
 
                 $isFind = executeSingleResult("select * from giohang where TenSP = '$tenSP'");
             
-                if($isFind == null){                              //nếu sản phẩm chưa có trong giỏ hàng thì thêm mới
-                    $sqlgiohang = "insert into giohang(IDGioHang, TenSP, iduser,SoLuong, TenMau, Gia, anh, create_time, update_time) 
-                                    values(null, '$tenSP', '2','$num', '$IDMau', '$gia', '$anh', '$create_time', '$update_time')";
-        
-                    execute($sqlgiohang);
+                if($isFind == null){                             //nếu sản phẩm chưa có trong giỏ hàng thì thêm mới
+                    if( $num < $sanphamthem['SoLuong']){
+                        if($_SESSION['user'] != null && isset($_SESSION['user'])){   
+                            $user = $_SESSION['user'];
+                            $iduser = executeSingleResult("select id from account where UserName = '$user'");
+                            (int)$id = $iduser['id'];                      // kiểm tra đăng nhâp   
+                            $sqlgiohang = "insert into giohang(IDGioHang, TenSP, iduser,SoLuong, TenMau, Gia, anh, create_time, update_time) 
+                                        values(null, '$tenSP', '$id','$num', '$IDMau', '$gia', '$anh', '$create_time', '$update_time')";
+            
+                            execute($sqlgiohang);
+                        }
+                    }
+                    else{
+                        $smg = "Sản phẩm không đủ hàng yêu cầu!";
+                    }
                 }
                 else{
-                    $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num', update_time = '$update_time' where TenSP = '$tenSP'";
-                    execute($sqlgiohang);
+                    $checkSL = executeSingleResult("select SoLuong from giohang where TenSP = '$tenSP'");
+                    if($checkSL['SoLuong'] + $num <= $sanphamthem['SoLuong']){
+                        if($_SESSION['user'] != null && isset($_SESSION['user'])){
+                            $user = $_SESSION['user'];
+                            $iduser = executeSingleResult("select id from account where UserName = '$user'");
+                            (int)$id = $iduser['id'];
+                            $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num', update_time = '$update_time' where TenSP = '$tenSP' and iduser = '$id'";
+                            execute($sqlgiohang);
+                        }
+                    }
+                    else{
+                        $smg = "Sản phẩm không đủ hàng yêu cầu!";
+                    }
                 }
                 break;
         }

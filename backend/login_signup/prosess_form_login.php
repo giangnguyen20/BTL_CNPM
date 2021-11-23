@@ -34,7 +34,8 @@ if(isset($_POST['user'])){                                     // kiểm tra có
                 die();
             }
             else{                                                                           // về trang admin
-                header('Location: ../../admin/product/adminsp.php');
+                $_SESSION['user'] = $user;
+                header('Location: ../../adminpage/home.php');
                 die();
             }
         }else{                                                                              // thông báo sai pass

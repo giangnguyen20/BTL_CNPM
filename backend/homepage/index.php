@@ -127,7 +127,6 @@
                                 <li>
                                     <?php
                                         if(!empty($_SESSION['user'])){                  //đã đăng nhập thì hiện đăng xuất
-                                            
                                             echo '
                                             <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
                                                 Đăng xuất

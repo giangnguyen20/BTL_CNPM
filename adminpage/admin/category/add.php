@@ -1,23 +1,28 @@
 <?php
 require_once('..\..\db\dbhelper.php');
 
+$IDLoaiSP='';
 $tenloai='';
 
 if(!empty($_POST)){
 
+    if(isset($_POST['IDLoaiSP'])){
+        $IDLoaiSP=$_POST['IDLoaiSP'];
+    }
     if(isset($_POST['tenloai'])){
         $tenloai=$_POST['tenloai'];
+        $tenloai= str_replace('"','\\"',$tenloai);
     }
 
     if(!empty($tenloai)){
 
-        if($id==''){
+        if($IDLoaiSP==''){
             $sql='insert into loaisp(tenloai) 
             values ("'.$tenloai.'")';
         }
         else{
             $sql='update loaisp set tenloai="'.$tenloai.'" 
-            where IDLoaiSP="'.$id.'" ';
+            where IDLoaiSP="'.$IDLoaiSP.'" ';
         }
 
     }
@@ -29,11 +34,11 @@ if(!empty($_POST)){
 
 
 if(isset($_GET['IDLoaiSP'])){
-    $id=$_GET['IDLoaiSP'];
-    $sql='select * from loaisp where IDLoaiSP="'.$id.'"';
+    $IDLoaiSP=$_GET['IDLoaiSP'];
+    $sql='select * from loaisp where IDLoaiSP="'.$IDLoaiSP.'"';
     $sanpham= executeSingleResult($sql);
     if($sanpham != null){
-        $tendanhmuc=$sanpham['tendanhmuc'];
+        $tenloai=$sanpham['tenloai'];
     }
 }
 ?>
@@ -66,6 +71,7 @@ if(isset($_GET['IDLoaiSP'])){
                 <form method="POST">
                 <div class="form-group">
                     <label for="tensp">Tên Danh Mục:</label>
+                    <input type="text" name="IDLoaiSP" value="<?=$IDLoaiSP?>" hidden="true">
                     <input type="text" class="form-control" id="tenloai" name="tenloai" value="<?=$tenloai?>">
                 </div>
                 <button class="btn btn-success">Lưu</button>

@@ -3,7 +3,7 @@
     require_once('../utils/utility.php');
     require_once('../login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
-    require_once('phantrang.php');
+    require_once('phantrangloaisp.php');
     require_once('../search/request_search.php');
 ?>
 
@@ -227,7 +227,7 @@
                 <div class="page-num">
                     <?php
                             if ($current_page > 1 && $total_page > 1){
-                                echo '<a href="product.php?page='.($current_page-1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Prev</a>';
+                                echo '<a href="sanphamtheoloai.php?page='.($current_page-1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Prev</a>';
                             }
                             for ($i = 1; $i <= $total_page; $i++){
                                 // Nếu là trang hiện tại thì hiển thị thẻ span
@@ -236,12 +236,12 @@
                                     echo '<span style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da; color: #000; background: red;">'.$i.'</span> ';
                                 }
                                 else if($total_page < 2){
-                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'
+                                    echo '<a href="sanphamtheoloai.php?page='.$i.'?" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'
                                     .$i.'
                                     </a>';
                                 }
                                 else{
-                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">
+                                    echo '<a href="sanphamtheoloai.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">
                                     '.$i.'
                                     </a>';
                                 }
@@ -249,9 +249,8 @@
                             
                             // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                             if ($current_page < $total_page && $total_page > 1){
-                                echo '<a href="product.php?page='.($current_page+1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
+                                echo '<a href="sanphamtheoloai.php?page='.($current_page+1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
                             }
-                        
                     ?>
                 </div>
             </div>

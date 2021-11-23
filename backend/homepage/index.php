@@ -98,8 +98,8 @@
                     <div class="header-nav">
                         <ul class="nav">
                             <li><a href="../../backend/homepage/">Home</a></li>
-                            <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
-                            <li><a href="../category/product.php?tenloai=Gaming">gaming chair</a></li>
+                            <li><a href="../category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
+                            <li><a href="../category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                             <li><a href="#">About</a></li>
                         </ul>
                     </div>
@@ -176,6 +176,7 @@
                 <?php
                     $sql = 'select * from sanpham  
                             inner join mau on mau.IDSP = sanpham.IDSP
+                            where IDLoai = 1
                             group by sanpham.IDSP desc limit 4';
                     $ProductList = executeResult($sql);
                     
@@ -185,7 +186,7 @@
                         echo '
                         <a href="../category/chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 70%;" src="'.$item['anh'].'">
+                                <img style="width: 70%;" src="../../db/imgs/'.$item['anh'].'">
                                 <div class="item-info">
                                     <h3>'.$item['TenSp'].'</h3>
                                     <div class="item-much" style="justify-content: center;">

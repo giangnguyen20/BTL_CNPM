@@ -87,8 +87,8 @@
                 <div class="header-nav">
                     <ul class="nav">
                         <li><a href="../homepage/index.php">Home</a></li>
-                        <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
-                        <li><a href="../category/product.php?tenloai=Gaming">gaming chair</a></li>
+                        <li><a href="../category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
+                        <li><a href="../category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                         <li><a href="#">About</a></li>
                     </ul>
 
@@ -238,7 +238,7 @@
                                     <input type="submit" value="OK" style="margin-left: 4px; margin-top: 4px;">
                                 </form>
                             </td>
-                            <td><img src="'.$item['anh'].'"
+                            <td><img src="../../db/imgs/'.$item['anh'].'"
                             style="max-width:100px"/></td>
                             <td>'.$sthanhgia.'</td>
                             <td>

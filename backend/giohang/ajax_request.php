@@ -53,13 +53,13 @@ function addToCart(){
                 }
                 else{
                     $checkSL = executeSingleResult("select SoLuong from giohang where TenSP = '$tenSP'");
-                    if($checkSL['SoLuong'] + $num <= $sanphamthem['SoLuong']){
-                        if($_SESSION['user'] != null && isset($_SESSION['user'])){
-                            $user = $_SESSION['user'];
-                            $iduser = executeSingleResult("select id from account where UserName = '$user'");
-                            (int)$id = $iduser['id'];
+                    if($checkSL['SoLuong'] + $num <= $sanphamthem['SoLuong']){                              // check số lượng
+                        if($_SESSION['user'] != null && isset($_SESSION['user'])){                           
+                            $user = $_SESSION['user'];                                                                  
+                            $iduser = executeSingleResult("select id from account where UserName = '$user'");      //get iduser
+                            (int)$id = $iduser['id'];                                                   
                             $sqlgiohang = "update giohang set SoLuong = SoLuong + '$num', update_time = '$update_time' where TenSP = '$tenSP' and iduser = '$id'";
-                            execute($sqlgiohang);
+                            execute($sqlgiohang);                                                             // add giỏ hàng
                         }
                     }
                     else{

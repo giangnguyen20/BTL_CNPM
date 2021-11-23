@@ -101,8 +101,8 @@
                 <div class="header-nav">
                     <ul class="nav">
                         <li><a href="../homepage/index.php">Home</a></li>
-                        <li><a href="product.php?tenloai=Văn Phòng">office chair</a></li>
-                        <li><a href="product.php?tenloai=Gaming">gaming chair</a></li>
+                        <li><a href="sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
+                        <li><a href="sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                         <li><a href="#">About</a></li>
                     </ul>
 
@@ -158,7 +158,7 @@
                         echo '
                         <div class="row" style="margin-top: 80px;">
                             <div class="col-md-6 img">
-                                <img src="'.$productMau[0]['anh'].'" alt="ảnh sản phẩm">
+                                <img src="../../db/imgs/'.$productMau[0]['anh'].'" alt="ảnh sản phẩm">
                             </div>
                             <div class="col-md-6 info" style="display: flex; flex-direction: column;">
                                 <p><a href="../">Trang chủ</a> / <a href="product.php">Sản Phẩm</a> / '.$product['TenSp'].'</p>
@@ -243,7 +243,7 @@
                 
                 $sqlLoai = "select * from sanpham 
                 inner join mau on mau.IDSP = sanpham.IDSP
-                where IDLoai = '$loai' and Tensp != '$tensp'";
+                where IDLoai = '$loai' and Tensp != '$tensp' limit 4";
                 
                 $producttuongtu = executeResult($sqlLoai);
                 
@@ -252,7 +252,7 @@
                     echo '
                         <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 60%;" src="'.$item['anh'].'">
+                                <img style="width: 60%;" src="../../db/imgs/'.$item['anh'].'">
                                 <div class="item-info">
                                     <h5 style="margin: 0 auto;">'.$item['TenSp'].'</h5>
                                     <div class="item-much" style="justify-content: center;">

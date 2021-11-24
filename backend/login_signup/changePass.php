@@ -128,17 +128,17 @@
         <h5 style="text-align: center; color: red;"><?=$smg?></h5>
         <form method="post" onsubmit="return validateForm();">
             <div class="txt_field">
-                <input type="password" id="old_pwd" name="old_pass" required="true"  minlength="6">
+                <input type="password" id="old_pwd" name="old_pass" required="true"  minlength="6" required>
                 <span></span>
                 <label>mật khẩu cũ</label>
             </div>
             <div class="txt_field">
-                <input type="password" id="new_pwd" name="new_pass" required="true"  minlength="6">
+                <input type="password" id="new_pwd" name="new_pass" required="true"  minlength="6" required>
                 <span></span>
                 <label>mật khẩu mới</label>
             </div>
             <div class="txt_field">
-                <input type="password" id="confirmation_pwd" required="true" minlength="6">
+                <input type="password" id="confirmation_pwd" required="true" minlength="6" required>
                 <span></span>
                 <label>xác nhận mật khẩu mới</label>
             </div>

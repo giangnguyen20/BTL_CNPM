@@ -108,5 +108,34 @@ if(isset($_GET['IDKH'])){
 			</div>
 		</div>
 	</div>
+
+    <script>
+        const fileUploader = document.getElementById('sdt');
+
+        fileUploader.addEventListener('change', (event) => {
+            const vnf_regex = /((09|03)+([0-9]{8})\b)/g;
+            const phone_number = $('#sdt').val();
+
+            if(phone_number !==''){
+                if (vnf_regex.test(phone_number) == false) 
+                {
+                    alert('Số điện thoại của bạn không đúng định dạng!');
+                }
+            }
+        })
+
+        const tuoi = document.getElementById('tuoi');
+        tuoi.addEventListener('change', (event) => {
+            const vnf_regex = /(([1-9]{1}|[0-9]{2}|[0-9]{3})\b)/g;
+            const phone_number = $('#tuoi').val();
+            
+            if(phone_number !== ''){
+                if (vnf_regex.test(phone_number) == false) 
+                {
+                    alert('tuổi bạn nhập không hợp lệ!');
+                }
+            }
+        })
+    </script>
 </body>
 </html>

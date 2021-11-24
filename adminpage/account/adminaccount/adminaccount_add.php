@@ -88,7 +88,7 @@ if(isset($_GET['ID'])){
                 </div>
                 <div class="form-group">
                     <label for="sdt">Số Điện Thoại:</label>
-                    <input type="text" class="form-control" id="sdt" name="sdt" value="<?=$sdt?>">
+                    <input type="text" class="form-control" id="sdt" name="sdt" value="<?=$sdt?>" minlength="10" required>
                 </div>
                 <div class="form-group">
                     <label for="IDuser">ID Người Dùng:</label>
@@ -99,5 +99,20 @@ if(isset($_GET['ID'])){
 			</div>
 		</div>
 	</div>
+    <script>
+        const fileUploader = document.getElementById('sdt');
+
+        fileUploader.addEventListener('change', (event) => {
+            const vnf_regex = /((09|03)+([0-9]{8})\b)/g;
+            const phone_number = $('#sdt').val();
+
+            if(phone_number !==''){
+                if (vnf_regex.test(phone_number) == false) 
+                {
+                    alert('Số điện thoại của bạn không đúng định dạng!');
+                }
+            }
+        })
+    </script>
 </body>
 </html>

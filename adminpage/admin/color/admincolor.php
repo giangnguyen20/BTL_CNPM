@@ -18,7 +18,7 @@ if(isset($_POST['search'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Quản Lý Màu</title>
+	<title>Quản Lý Ảnh</title>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -41,7 +41,7 @@ if(isset($_POST['search'])){
 	<div class="container">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2 class="text-center">Quản Lý Màu</h2>
+				<h2 class="text-center">Quản Lý Ảnh</h2>
 			</div>
 			<div class="panel-body">
 
@@ -59,8 +59,7 @@ if(isset($_POST['search'])){
 							<th width="50px">STT</th>
 							<th width="350px">Tên Sản Phẩm</th>
 							<th width="90px">Tên Màu</th>
-							<th>Ảnh URL</th>
-							<th>Ảnh Tải Lên</th>
+							<th>Ảnh</th>
 							<th width="50px">Sửa</th>
 							<th width="50px">Xóa</th>
 						</tr>

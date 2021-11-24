@@ -133,12 +133,12 @@
                 <label>tài khoản</label>
             </div>
             <div class="txt_field">
-                <input type="password" id="pwd" name="pass" required="true"  minlength="6">
+                <input type="password" id="pwd" name="pass" required="true"  minlength="6" required>
                 <span></span>
                 <label>mật khẩu</label>
             </div>
             <div class="txt_field">
-                <input type="password" id="confirmation_pwd" required="true" minlength="6">
+                <input type="password" id="confirmation_pwd" required="true" minlength="6" required>
                 <span></span>
                 <label>xác nhận mật khẩu</label>
             </div>

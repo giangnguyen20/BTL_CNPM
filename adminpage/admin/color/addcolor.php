@@ -5,11 +5,8 @@ $IDMau='';
 $IDSP='';
 $TenMau='';
 $anh='';
-$anhupload='';
-$tenanhupload='';
 
 if(!empty($_POST)){
-
     if(isset($_POST['IDMau'])){
         $IDMau=$_POST['IDMau'];
     }
@@ -18,16 +15,13 @@ if(!empty($_POST)){
     }
     if(isset($_POST['TenMau'])){
         $TenMau=$_POST['TenMau'];
-        $TenMau= str_replace('"','\\"',$TenMau);
+        $TenMau= str_replace('"','//"',$TenMau);
     }
-    if(isset($_POST['anh'])){
-        $anh=$_POST['anh'];
-    }
-    if(isset($_FILES['anhupload'])){
-        $anhupload= basename($_FILES['anhupload']['name']);
-        $targer_dir="../../uploads/";
-        $targer_file=$targer_dir.$anhupload;
-        if(move_uploaded_file($_FILES["anhupload"]["tmp_name"],$targer_file)){
+    if(isset($_FILES['anh'])){
+        $anh= basename($_FILES['anh']['name']);
+        $targer_dir="../../../db/imgs/";
+        $targer_file=$targer_dir.$anh;
+        if(move_uploaded_file($_FILES["anh"]["tmp_name"],$targer_file)){
             echo'upload thành công';
         }
         else{
@@ -35,18 +29,18 @@ if(!empty($_POST)){
         }
         
     }
-
+    
     if(!empty($IDSP) && !empty($TenMau)){
 
         
         if($IDMau==''){
             $sql='insert into mau(IDSP,anh,TenMau,tenanhupload) 
-            values ("'.$IDSP.'", "'.$anh.'", "'.$TenMau.'", "'.$anhupload.'")';
+            values ("'.$IDSP.'", "'.$anh.'", "'.$TenMau.'")';
             
         }
         else{
             $sql='update mau set IDSP="'.$IDSP.'", anh="'.$anh.'",
-            TenMau="'.$TenMau.'", tenanhupload="'.$anhupload.'"
+            TenMau="'.$TenMau.'"
             where IDMau="'.$IDMau.'" ';
         }
 
@@ -67,7 +61,6 @@ if(isset($_GET['IDMau'])){
         $IDSP=$mau['IDSP'];
         $TenMau=$mau['TenMau'];
         $anh=$mau['anh'];
-        $tenanhupload=$mau['tenanhupload'];
     }
 }
 ?>
@@ -116,15 +109,11 @@ if(isset($_GET['IDMau'])){
                     <label for="tensp">Tên Màu:</label>
                     <input type="text" class="form-control" id="TenMau" name="TenMau" value="<?=$TenMau?>">
                 </div>
-                <div class="form-group">
-                    <label for="img">Ảnh(Dùng URL):</label>
-                    <input type="text" class="form-control" id="anh" name="anh" value="<?=$anh?>" onchange="updateimg()">
-                    <img src="<?=$anh?>" style="max-width:200px" id="img_pic">
-                </div>
+                
                 <div class="form-group">
                     <label for="imgupload">Ảnh(Tải file ảnh lên):</label>
-                    <input type="file" class="form-control" id="anhupload" name="anhupload" value="<?=$tenanhupload?>" onchange="updateimg()">
-                    <img src="<?=$anh?>" style="max-width:200px" id="img_pic">
+                    <input type="file" class="form-control" id="anh" name="anh" value="<?=$anh?>">
+                    <img src="../../../db/imgs/<?=$anh?>" style="max-width:200px" id="img_pic">
                 </div>
                 <button class="btn btn-success">Lưu</button>
                 </form>
@@ -132,9 +121,14 @@ if(isset($_GET['IDMau'])){
 		</div>
 	</div>
     <script>
-        function updateimg(){
-            $('#img_pic').attr('src',$('#anh').val())
-        }
+        const fileUploader = document.getElementById('anh');
+        
+        fileUploader.addEventListener('change', (event) => {
+            const files = event.target.files;
+            const src = '../../../db/imgs/' + files[0].name;
+            $('#img_pic').attr('src',src)
+        });
+
     </script>
 </body>
 </html>

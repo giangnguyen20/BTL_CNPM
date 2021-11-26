@@ -95,7 +95,7 @@ if(isset($_GET['IDMau'])){
                     <label for="tensp">Tên Sản Phẩm:</label>
                     <input type="text" name="IDMau" value="<?=$IDMau?>" hidden="true">
                     <select class="form-control" id="IDSP" name="IDSP" value="<?=$IDSP?>">
-                    <option>Lựa chọn hãng sản xuất</option>
+                    <option>Tên sản phẩm</option>
                     <?php
                     $sql='select * from sanpham';
                     $sanpham= executeResult($sql);

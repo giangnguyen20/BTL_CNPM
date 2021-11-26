@@ -38,16 +38,17 @@ if(!empty($_POST)){
     if(!empty($TenSp) && !empty($IDHangSX)
     && !empty($IDLoai) && !empty($Gia)
     && !empty($SoLuong)){
-
+        $create_time = date('Y-m-d H:i:s');
+        $update_time = date('Y-m-d H:i:s');
         if($IDSP==''){
             $sql='insert into sanpham(TenSp, IDHangSX, IDLoai, Gia, SoLuong, chitietsp, create_time, update_time) 
             values ("'.$TenSp.'", "'.$IDHangSX.'", 
-            "'.$IDLoai.'", "'.$Gia.'", "'.$SoLuong.'", "'.$chitietsp.'")';
+            "'.$IDLoai.'", "'.$Gia.'", "'.$SoLuong.'", "'.$chitietsp.'","'.$create_time.'", "'.$update_time.'")';
         }
         else{
             $sql='update sanpham set TenSp="'.$TenSp.'"
             , IDHangSX="'.$IDHangSX.'", IDLoai="'.$IDLoai.'"
-            , Gia="'.$Gia.'", SoLuong="'.$SoLuong.'", chitietsp="'.$chitietsp.'" 
+            , Gia="'.$Gia.'", SoLuong="'.$SoLuong.'", chitietsp="'.$chitietsp.'","'.$update_time.'"
             where IDSP="'.$IDSP.'" ';
         }
 
@@ -105,50 +106,50 @@ if(isset($_GET['IDSP'])){
 			</div>
 			<div class="panel-body">
                 <form method="POST">
-                <div class="form-group">
-                    <label for="TenSp">Tên SP:</label>
-                    <input type="text" name="IDSP" value="<?=$IDSP?>" hidden="true">
-                    <input type="text" class="form-control" id="TenSp" name="TenSp" value="<?=$TenSp?>">
-                </div>
-                <div class="form-group">
-                    <label for="IDHangSX">Hãng SX:</label>
-                    <select class="form-control" name="IDHangSX" id="IDHangSX" value="<?=$IDHangSX?>">
-                    <option>Lựa chọn hãng sản xuất</option>
-                    <?php
-                    $sql='select * from nhasx';
-                    $sanpham= executeResult($sql);
-                    foreach($sanpham as $item){
-                        echo'<option value="'.$item['IDNSX'].'">'.$item['TenHangSX'].'</option>';
-                    }
-                    ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="IDLoai">Loại SP:</label>
-                    <select class="form-control" name="IDLoai" id="IDLoai" value="<?=$IDLoai?>">
-                    <option>Lựa chọn loại sản phẩm</option>
-                    <?php
-                    $sql='select * from loaisp';
-                    $sanpham= executeResult($sql);
-                    foreach($sanpham as $item){
-                        echo'<option value="'.$item['IDLoaiSP'].'">'.$item['tenloai'].'</option>';
-                    }
-                    ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="Gia">Giá:</label>
-                    <input type="text" class="form-control" id="Gia" name="Gia" value="<?=$Gia?>">
-                </div>
-                <div class="form-group">
-                    <label for="SoLuong">Số Lượng:</label>
-                    <input type="text" class="form-control" id="SoLuong" name="SoLuong" value="<?=$SoLuong?>">
-                </div>
-                <div class="form-group">
-                    <label for="img">Chi tiết sản phẩm:</label>
-                    <textarea class="form-control" rows="5" name="chitietsp" id="chitietsp" ><?=$chitietsp?></textarea>
-                </div>
-                <button class="btn btn-success">Lưu</button>
+                    <div class="form-group">
+                        <label for="TenSp">Tên SP:</label>
+                        <input type="text" name="IDSP" value="<?=$IDSP?>" hidden="true">
+                        <input type="text" class="form-control" id="TenSp" name="TenSp" value="<?=$TenSp?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="IDHangSX">Hãng SX:</label>
+                        <select class="form-control" name="IDHangSX" id="IDHangSX" value="<?=$IDHangSX?>">
+                        <option>Lựa chọn hãng sản xuất</option>
+                        <?php
+                        $sql='select * from nhasx';
+                        $sanpham= executeResult($sql);
+                        foreach($sanpham as $item){
+                            echo'<option value="'.$item['IDNSX'].'">'.$item['TenHangSX'].'</option>';
+                        }
+                        ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="IDLoai">Loại SP:</label>
+                        <select class="form-control" name="IDLoai" id="IDLoai" value="<?=$IDLoai?>">
+                        <option>Lựa chọn loại sản phẩm</option>
+                        <?php
+                        $sql='select * from loaisp';
+                        $sanpham= executeResult($sql);
+                        foreach($sanpham as $item){
+                            echo'<option value="'.$item['IDLoaiSP'].'">'.$item['tenloai'].'</option>';
+                        }
+                        ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gia">Giá:</label>
+                        <input type="text" class="form-control" id="Gia" name="Gia" value="<?=$Gia?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="SoLuong">Số Lượng:</label>
+                        <input type="text" class="form-control" id="SoLuong" name="SoLuong" value="<?=$SoLuong?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="img">Chi tiết sản phẩm:</label>
+                        <textarea class="form-control" rows="5" name="chitietsp" id="chitietsp" ><?=$chitietsp?></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Lưu</button>
                 </form>
 			</div>
 		</div>

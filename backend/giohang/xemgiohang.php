@@ -332,7 +332,7 @@
                             foreach($tong as $item){
                                 $t += $item;
                             }
-                            echo '<button class="btn btn-success" onclick="thanhtoan('.$t.')">Thanh toán</button>';
+                            // echo '<button class="btn btn-success" onclick="thanhtoan('.$t.')">Thanh toán</button>';
                         ?>
                         
                     </td>

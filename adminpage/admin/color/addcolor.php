@@ -34,8 +34,8 @@ if(!empty($_POST)){
 
         
         if($IDMau==''){
-            $sql='insert into mau(IDSP,anh,TenMau,tenanhupload) 
-            values ("'.$IDSP.'", "'.$anh.'", "'.$TenMau.'")';
+            $sql='insert into mau(IDMau,IDSP,TenMau,anh) 
+            values (null,"'.$IDSP.'", "'.$TenMau.'", "'.$anh.'")';
             
         }
         else{

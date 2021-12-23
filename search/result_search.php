@@ -68,8 +68,8 @@
                 <div class="header-nav">
                     <ul class="nav">
                         <li><a href="../homepage/index.php">Home</a></li>
-                        <li><a href="../category/product.php?tenloai=Văn Phòng">office chair</a></li>
-                        <li><a href="../category/product.php?tenloai=Gaming">gaming chair</a></li>
+                        <li><a href="../category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
+                        <li><a href="../category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                         <li><a href="#">About</a></li>
                     </ul>
 
@@ -122,12 +122,12 @@
             <?php
                 if(isset($_GET['search'])){
                     $k = $_GET['search'];
-                    $results_search = executeResult("select * from sanpham inner join mau on mau.IDSP = sanpham.IDSP where sanpham.TenSp like '%$k%'");
+                    $results_search = executeResult("select * from sanpham inner join mau on mau.IDSP = sanpham.IDSP where sanpham.TenSp like '%$k%' or Gia like '%$k%'");
                     
                     foreach($results_search as $item){
                         echo '
                             <div class="item" style="border: 1px solid #ccc; display: flex; align-items: center; justify-content: flex-start;">
-                                <div class="anh" style="flex: 1;"><img src="'.$item['anh'].'" style="width: 50%;"></div>
+                                <div class="anh" style="flex: 1;"><img src="../../db/imgs/'.$item['anh'].'" style="width: 50%;"></div>
                                 <div class="info-item" style="margin-left: 4px; flex: 3;">
                                     <p>'.$item['TenSp'].'</p>
                                     <p>'.$item['Gia'].'</p>

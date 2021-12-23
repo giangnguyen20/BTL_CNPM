@@ -1,5 +1,4 @@
 <?php
-require_once('../../db/dbhelper.php');
 session_start();
 $user = $pwd = $smg ='';
 
@@ -30,12 +29,12 @@ if(isset($_POST['user'])){                                     // kiểm tra có
                     }
                 }                                                                           //đưa về trang chủ
                 $_SESSION['user'] = $user;
-                header('Location: ../homepage/');
+                header('Location: ../');
                 die();
             }
             else{                                                                           // về trang admin
                 $_SESSION['user'] = $user;
-                header('Location: ../../adminpage/home.php');
+                header('Location: ../adminpage/home.php');
                 die();
             }
         }else{                                                                              // thông báo sai pass

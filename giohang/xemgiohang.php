@@ -1,5 +1,5 @@
 <?php
-    require_once('../../backend/login_signup/prosess_form_login.php');  
+    require_once('../login_signup/prosess_form_login.php');  
     require_once('../utils/utility.php');
     require_once('ajax_request_pay.php');
     require_once('ajax_request.php');
@@ -64,9 +64,9 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../assets/style/style.css">
-    <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/style/product-style.css">
+    <link rel="stylesheet" href="../assets/style/style.css">
+    <link rel="stylesheet" href="../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../assets/style/product-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         a:hover {
@@ -80,13 +80,13 @@
         <!-- Header -->
         <div class="header" style=" height: 55px;">
             <div class="header-logo">
-                <img src="../../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
+                <img src="../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
             </div>
 
             <div class="header-content">
                 <div class="header-nav">
                     <ul class="nav">
-                        <li><a href="../homepage/index.php">Home</a></li>
+                        <li><a href="../index.php">Home</a></li>
                         <li><a href="../category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
                         <li><a href="../category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                         <li><a href="#">About</a></li>
@@ -238,7 +238,7 @@
                                     <input type="submit" value="OK" style="margin-left: 4px; margin-top: 4px;">
                                 </form>
                             </td>
-                            <td><img src="../../db/imgs/'.$item['anh'].'"
+                            <td><img src="../db/imgs/'.$item['anh'].'"
                             style="max-width:100px"/></td>
                             <td>'.$sthanhgia.'</td>
                             <td>

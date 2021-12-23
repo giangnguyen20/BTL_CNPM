@@ -1,9 +1,9 @@
 <?php
 require_once ('../utils/utility.php');
-require_once ('../../db/dbhelper.php');
+require_once ('../db/dbhelper.php');
 require_once('../login_signup/prosess_form_login.php');
 
-$action = getPost('action');    // get value cation
+$action = getPost('action');    
 $smg = '';
 switch($action){                // kiểm tra yêu cầu
     case 'cart':                

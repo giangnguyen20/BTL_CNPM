@@ -1,6 +1,6 @@
 <?php
-    require_once('../../db/dbhelper.php');
-    require_once('../../backend/login_signup/prosess_form_login.php');
+    require_once('../db/dbhelper.php');
+    require_once('../login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
 
     $productID = $smg = '';
@@ -46,9 +46,9 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../assets/style/style.css">
-    <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/style/product-style.css">
+    <link rel="stylesheet" href="../assets/style/style.css">
+    <link rel="stylesheet" href="../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../assets/style/product-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .container .chitietproduct .row .img img{
@@ -94,7 +94,7 @@
         <!-- Header -->
         <div class="header" style=" height: 55px;">
             <div class="header-logo">
-                <img src="../../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
+                <img src="../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
             </div>
 
             <div class="header-content">
@@ -130,12 +130,12 @@
                                         if(!empty($_SESSION['user'])){                  //đã đăng nhập thì hiện đăng xuất
                                             
                                             echo '
-                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                            <a href="../login_signup/logout.php" style="text-decoration: none; color: #000;">
                                                 Đăng xuất
                                             </a>';
                                         }
                                         else{
-                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                            echo '<a href="../login_signup/login.php" style="text-decoration: none; color: #000;">
                                                 Đăng Nhập
                                             </a>';
                                         }
@@ -158,7 +158,7 @@
                         echo '
                         <div class="row" style="margin-top: 80px;">
                             <div class="col-md-6 img">
-                                <img src="../../db/imgs/'.$productMau[0]['anh'].'" alt="ảnh sản phẩm">
+                                <img src="../db/imgs/'.$productMau[0]['anh'].'" alt="ảnh sản phẩm">
                             </div>
                             <div class="col-md-6 info" style="display: flex; flex-direction: column;">
                                 <p><a href="../">Trang chủ</a> / <a href="product.php">Sản Phẩm</a> / '.$product['TenSp'].'</p>
@@ -252,7 +252,7 @@
                     echo '
                         <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 60%;" src="../../db/imgs/'.$item['anh'].'">
+                                <img style="width: 60%;" src="../db/imgs/'.$item['anh'].'">
                                 <div class="item-info">
                                     <h5 style="margin: 0 auto;">'.$item['TenSp'].'</h5>
                                     <div class="item-much" style="justify-content: center;">

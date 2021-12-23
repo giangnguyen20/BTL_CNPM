@@ -1,7 +1,8 @@
 <?php
-require_once('../../backend/login_signup/prosess_form_login.php');
+require_once('../login_signup/prosess_form_login.php');
 require_once ('../utils/utility.php');
-require_once ('../../db/dbhelper.php');
+require_once ('../db/dbhelper.php');
+
 
 if(isset($_SESSION['user']) && $_SESSION['user'] != null){                      //kiểm tra đăng nhập
     $user = $_SESSION['user'];
@@ -22,7 +23,7 @@ switch($pay){                                       // kiểm tra thanh toán
 function Pay(){                                     // thực hiện thêm thông tin thanh toán vào database
     $ngaythanhtoan = date('Y-m-d H:i:s');           // lấy ngày thanh toán
     $tong = getPost('tonggia');
-    execute("insert into hoadon(ID, IDKH, NgayTao, TongGia) values (null, '$idkh', '$ngaythanhtoan', '$tong')");        // thêm vào bảng hóa đơn
+    // execute("insert into hoadon(ID, IDKH, NgayTao, TongGia) values (null, '$idkh', '$ngaythanhtoan', '$tong')");        // thêm vào bảng hóa đơn
 
     $hoahon = executeResult("select * from hoadon");
     $idhoadon = 0;

@@ -1,6 +1,6 @@
 <?php
-require_once('../../db/dbhelper.php');
-require_once ('../utils/utility.php');
+// require_once('../../db/dbhelper.php');
+// require_once ('../utils/utility.php');
 
 $key = '';
 

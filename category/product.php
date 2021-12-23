@@ -1,9 +1,9 @@
 <?php 
-    require_once('../../db/dbhelper.php');
+    require_once('../db/dbhelper.php');
     require_once('../utils/utility.php');
     require_once('../login_signup/prosess_form_login.php');
     require_once('../giohang/ajax_request.php');
-    require_once('phantrangloaisp.php');
+    require_once('phantrang.php');
     require_once('../search/request_search.php');
 ?>
 
@@ -15,12 +15,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
-    <link rel="stylesheet" href="../../assets/style/style.css">
-    <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/style/product-style.css">
+    <link rel="stylesheet" href="../assets/style/style.css">
+    <link rel="stylesheet" href="../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../assets/style/product-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <style>
+        a{
+           color: black; 
+        }
         .container .chitietproduct .row .img img{
             width: 100%;
             box-shadow: 0 0 4px 4px #ccc;
@@ -80,13 +83,13 @@
         <!-- Header -->
         <div class="header" style=" height: 55px;">
             <div class="header-logo">
-                <img src="../../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
+                <img src="../assets/imgaes/your-logo.png" alt="logo" style="height: 55px;">
             </div>
 
             <div class="header-content">
                 <div class="header-nav">
                     <ul class="nav">
-                        <li><a href="../homepage/index.php">Home</a></li>
+                        <li><a href="../index.php">Home</a></li>
                         <li><a href="sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
                         <li><a href="sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                         <li><a href="#">About</a></li>
@@ -117,12 +120,12 @@
                                         if(!empty($_SESSION['user'])){  //kiểm tra đã đăng nhập hay chưa
                                             
                                             echo '
-                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                            <a href="../login_signup/logout.php" style="text-decoration: none; color: #000;">
                                                 Đăng xuất
                                             </a>';
                                         }
                                         else{
-                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                            echo '<a href="../login_signup/login.php" style="text-decoration: none; color: #000;">
                                                 Đăng Nhập
                                             </a>';
                                         }
@@ -204,7 +207,7 @@
                         <div class="item-sp" style="display: flex; flex-direction: column; width: 30%;">
                             <a href="chitietsanpham.php?id='.$item['IDSP'].'" style="width: 30%; color: black;">
                                 <div class="product-item">
-                                    <img style="width: 70%;" src="../../db/imgs/'.$item['anh'].'">
+                                    <img style="width: 70%;" src="../db/imgs/'.$item['anh'].'">
                                     <div class="item-info">
                                         <h3>'.$item['TenSp'].'</h3>
                                         <div class="item-much" style="justify-content: center;">
@@ -227,7 +230,7 @@
                 <div class="page-num">
                     <?php
                             if ($current_page > 1 && $total_page > 1){
-                                echo '<a href="sanphamtheoloai.php?page='.($current_page-1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Prev</a>';
+                                echo '<a href="product.php?page='.($current_page-1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Prev</a>';
                             }
                             for ($i = 1; $i <= $total_page; $i++){
                                 // Nếu là trang hiện tại thì hiển thị thẻ span
@@ -236,12 +239,12 @@
                                     echo '<span style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da; color: #000; background: red;">'.$i.'</span> ';
                                 }
                                 else if($total_page < 2){
-                                    echo '<a href="sanphamtheoloai.php?page='.$i.'?" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'
+                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">'
                                     .$i.'
                                     </a>';
                                 }
                                 else{
-                                    echo '<a href="sanphamtheoloai.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">
+                                    echo '<a href="product.php?page='.$i.'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">
                                     '.$i.'
                                     </a>';
                                 }
@@ -249,8 +252,9 @@
                             
                             // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                             if ($current_page < $total_page && $total_page > 1){
-                                echo '<a href="sanphamtheoloai.php?page='.($current_page+1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
+                                echo '<a href="product.php?page='.($current_page+1).'" style="padding: 8px; margin-left: 4px; border: 1px solid #8e80da">Next</a> ';
                             }
+                        
                     ?>
                 </div>
             </div>

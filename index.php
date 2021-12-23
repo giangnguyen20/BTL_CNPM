@@ -1,8 +1,8 @@
 <?php 
-    require_once('../../db/dbhelper.php');
-    require_once('../../backend/login_signup/prosess_form_login.php');
+    require_once('db/dbhelper.php');
+    require_once('login_signup/prosess_form_login.php');
     // require_once('../giohang/ajax_request.php');
-    require_once('../search/request_search.php');
+    require_once('search/request_search.php');
     //
     if($_SESSION['user'] != null && isset($_SESSION['user'])){
         $us = $_SESSION['user'];
@@ -27,8 +27,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chair Shop</title>
-    <link rel="stylesheet" href="../../assets/style/style.css">
-    <link rel="stylesheet" href="../../assets/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="assets/font/themify-icons-font/themify-icons/themify-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         .header {
@@ -81,13 +81,13 @@
         <!-- Header -->
         <div class="header">
             <div class="header-logo">
-                <img src="../../assets/imgaes/your-logo.png" alt="logo">
+                <img src="assets/imgaes/your-logo.png" alt="logo">
             </div>
 
             <div class="header-content">
                 <div class="header-item">
                     <div class="header-item_search">
-                        <form action="../search/request_search.php">
+                        <form action="search/request_search.php">
                             <input type="text" name="txt_search" style="width: 85%;">
                             <button type="submit">
                                 <i class="ti-search js_search"></i>
@@ -97,9 +97,9 @@
 
                     <div class="header-nav">
                         <ul class="nav">
-                            <li><a href="../../backend/homepage/">Home</a></li>
-                            <li><a href="../category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
-                            <li><a href="../category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
+                            <li><a href="index.php">Home</a></li>
+                            <li><a href="category/sanphamtheoloai.php?tenloai=Văn Phòng">office chair</a></li>
+                            <li><a href="category/sanphamtheoloai.php?tenloai=Gaming">gaming chair</a></li>
                             <li><a href="#">About</a></li>
                         </ul>
                     </div>
@@ -121,19 +121,19 @@
                                 </li>
                                     <?php 
                                         if(!empty($_SESSION['user'])){                 // đã đăng nhập thì cho đổi mật khẩu
-                                            echo '<li><a href="../login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
+                                            echo '<li><a href="login_signup/changePass.php" style="color: black;">Doi Mat Khau</a></li>';
                                         }
                                     ?>
                                 <li>
                                     <?php
                                         if(!empty($_SESSION['user'])){                  //đã đăng nhập thì hiện đăng xuất
                                             echo '
-                                            <a href="../../backend/login_signup/logout.php" style="text-decoration: none; color: #000;">
+                                            <a href="login_signup/logout.php" style="text-decoration: none; color: #000;">
                                                 Đăng xuất
                                             </a>';
                                         }
                                         else{
-                                            echo '<a href="../../backend/login_signup/login.php" style="text-decoration: none; color: #000;">
+                                            echo '<a href="login_signup/login.php" style="text-decoration: none; color: #000;">
                                                 Đăng Nhập
                                             </a>';
                                         }
@@ -183,9 +183,9 @@
 
                     foreach($ProductList as $item){
                         echo '
-                        <a href="../category/chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
+                        <a href="category/chitietsanpham.php?id='.$item['IDSP'].'" style="width: 25%; color: black;">
                             <div class="product-item">
-                                <img style="width: 70%;" src="../../db/imgs/'.$item['anh'].'">
+                                <img style="width: 70%;" src="db/imgs/'.$item['anh'].'">
                                 <div class="item-info">
                                     <h3>'.$item['TenSp'].'</h3>
                                     <div class="item-much" style="justify-content: center;">
